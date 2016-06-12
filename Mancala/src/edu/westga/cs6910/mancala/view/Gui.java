@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -66,10 +67,19 @@ public class Gui {
 	}
 
 	private void buildContentPane() {
-		this.pnlChooseFirstPlayer = 
-				new NewGamePanel(this.theGame);
-		this.contentPane.add(this.pnlChooseFirstPlayer, 
-							 BorderLayout.WEST);
+		this.pnlChooseFirstPlayer = new NewGamePanel(this.theGame);
+		this.contentPane.add(this.pnlChooseFirstPlayer, BorderLayout.WEST);
+		
+		this.pnlHumanPlayer = new NewGamePanel(this.theGame);
+		this.contentPane.add(this.pnlHumanPlayer, BorderLayout.SOUTH);
+		this.pnlHumanPlayer.setEnabled(false);
+		
+		this.pnlGameInfo = new NewGamePanel(this.theGame);
+		this.contentPane.add(this.pnlGameInfo, BorderLayout.CENTER);
+		
+		this.pnlComputerPlayer = new NewGamePanel(this.theGame);
+		this.contentPane.add(this.pnlComputerPlayer, BorderLayout.NORTH);
+		this.pnlComputerPlayer.setEnabled(false);
 		
 		// TODO: 1. Instantiate this.pnlHumanPlayer, add it to
 		//			the content pane at the bottom, and disable it.	
@@ -116,13 +126,17 @@ public class Gui {
 			
 			// TODO: Instantiate this.radComputerPlayer and add 
 			//		 ComputerFirstListener as its action listener.
-
+			this.radComputerPlayer = new JRadioButton("Computer first");
+			this.radComputerPlayer.addActionListener(new ComputerFirstListener());
 			
 			// TODO: Create a ButtonGroup and add the 2 radio buttons to it.
-
+			ButtonGroup group = new ButtonGroup();
+			group.add(this.radHumanPlayer);
+			group.add(this.radComputerPlayer);
 	
 			// TODO: Add the 2 radio buttons to this panel.
-
+			this.add(this.radHumanPlayer);
+			this.add(this.radComputerPlayer);
 		}
 		
 		/* 
@@ -163,7 +177,10 @@ public class Gui {
 				//		 and the computer is not.				
 				// 		Enable pnlHumanPlayer and start a game
 				//		with theHuman as the first player.
-
+				NewGamePanel.this.theHuman.setIsMyTurn(true);
+				NewGamePanel.this.theComputer.setIsMyTurn(false);
+				Gui.this.pnlHumanPlayer.setEnabled(true);
+				Gui.this.theGame.startNewGame(NewGamePanel.this.theHuman, NewGamePanel.this.theComputer);
 				
 				NewGamePanel.this.radHumanPlayer.setEnabled(false);
 				NewGamePanel.this.radComputerPlayer.setEnabled(false);

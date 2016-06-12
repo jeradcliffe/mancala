@@ -16,7 +16,7 @@ import edu.westga.cs6910.mancala.model.Game;
  * take its turn and that displays the setup of this player's side
  * of the board
  * 
- * @author	CS6910
+ * @author	Jacob Radcliffe
  * @version	Summer 2016
  */
 public class ComputerPlayerPanel extends JPanel implements Observer {
@@ -43,6 +43,7 @@ public class ComputerPlayerPanel extends JPanel implements Observer {
 		
 		// TODO: Add this object as an observer of this.theGame.
 		//       See http://tinyurl.com/javaObserverPattern
+		this.theGame.addObserver(this);
 		
 		this.theComputer = this.theGame.getComputerPlayer();
 		

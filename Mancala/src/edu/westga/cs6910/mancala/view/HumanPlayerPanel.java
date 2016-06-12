@@ -24,7 +24,7 @@ import edu.westga.cs6910.mancala.model.HumanPlayer;
  * 	their turn and that displays the setup of this player's side
  * of the board
  * 
- * @author	CS6910
+ * @author	Jacob Radcliffe
  * @version Summer 2016
  */
 public class HumanPlayerPanel extends JPanel implements Observer {
