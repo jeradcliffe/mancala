@@ -15,6 +15,21 @@ public abstract class AbstractPlayer implements Player {
 	private boolean isMyTurn;
 	private String name;
 	
+	/**
+	 * Creates an AbstractPlayer a specified name
+	 * 
+	 * @param	name	this Player's name
+	 * @param	theGame The Game that this player represents
+	 * 
+	 * @requires	name != null
+	 */
+	public AbstractPlayer(String name) {
+		if (name == null) {
+			throw new IllegalArgumentException("Invalid player name");
+		}
+		this.name = name;
+	}
+	
 	/* (non-Javadoc)
 	 * @see edu.westga.cs6910.mancala.model.Player#getIsMyTurn()
 	 */

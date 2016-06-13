@@ -15,12 +15,9 @@ package edu.westga.cs6910.mancala.model;
  * @author	Jacob Radcliffe
  * @version	Summer 2016
  */
-public class ComputerPlayer implements Player {
+public class ComputerPlayer extends AbstractPlayer {
 	private static final String NAME = "Simple computer";
-	
 	private Game theGame;
-	private String name;
-	private boolean isMyTurn;
 	
 	/**
 	 * Creates a new ComputerPlayer with the specified name.
@@ -29,37 +26,13 @@ public class ComputerPlayer implements Player {
 	 * 
 	 */
 	public ComputerPlayer(Game theGame) {
+		super(NAME);
 		if (theGame == null) {
 			throw new IllegalArgumentException("Invalid Game object");
 		}
-		
 		this.theGame = theGame;
-		this.name = NAME;
 	}
 
-	@Override	
-	/**
-	 * @see Player#getIsMyTurn()
-	 */
-	public boolean getIsMyTurn() {
-		return this.isMyTurn;
-	}	
-
-	@Override	
-	/**
-	 * @see Player#getName()
-	 */
-	public String getName() {
-		return this.name;
-	}
-
-	@Override	
-	/**
-	 * @see Player#setIsMyTurn()
-	 */
-	public void setIsMyTurn(boolean isMyTurn) {
-		this.isMyTurn = isMyTurn;
-	}
 	
 	@Override
 	/**
@@ -72,6 +45,6 @@ public class ComputerPlayer implements Player {
 		}
 		this.theGame.distributeStonesFrom(pitChoice);
 
-		this.isMyTurn = false;
+		super.setIsMyTurn(false);
 	}
 }

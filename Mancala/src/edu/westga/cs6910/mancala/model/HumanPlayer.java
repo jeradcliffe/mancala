@@ -6,10 +6,7 @@ package edu.westga.cs6910.mancala.model;
  * @author	CS6910
  * @version Summer 2016
  */
-public class HumanPlayer implements Player {
-	private String name;
-	private boolean isMyTurn;	
-	
+public class HumanPlayer extends AbstractPlayer {
 	private Game theGame;
 	
 	/**
@@ -22,41 +19,13 @@ public class HumanPlayer implements Player {
 	 * @ensure		name().equals(name) && getTotal() == 0
 	 */
 	public HumanPlayer(String name, Game theGame) {
+		super(name);
 		if (theGame == null) {
 			throw new IllegalArgumentException("Invalid Game object");
 		}
-		if (name == null) {
-			throw new IllegalArgumentException("Invalid player name");
-		}
-		this.name = name;
 		this.theGame = theGame;
 	}
 
-	@Override	
-	/**
-	 * @see Player#getIsMyTurn()
-	 */
-	public boolean getIsMyTurn() {
-		return this.isMyTurn;
-	}
-	
-	@Override
-	/**
-	 * @see Player#getName()
-	 */
-	public String getName() {
-		return this.name;
-	}	
-
-	/**
-	 * Used to set whether it is this players turn or not
-	 * @param	isMyTurn	Signifies whether it is this player's 
-	 * 						turn or not
-	 */
-	public void setIsMyTurn(boolean isMyTurn) {
-		this.isMyTurn = isMyTurn;
-	}
-	
 	@Override
 	/**
 	 * @see Player#takeTurn()
@@ -67,6 +36,6 @@ public class HumanPlayer implements Player {
 		}
 		this.theGame.distributeStonesFrom(pitChoice);
 
-		this.isMyTurn = false;
+		super.setIsMyTurn(false);
 	}
 }
