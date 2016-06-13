@@ -36,7 +36,7 @@ public class ComputerPlayer extends AbstractPlayer {
 	
 	@Override
 	/**
-	 * @see Player#takeTurn()
+	 * @see AbstractPlayer#takeTurn()
 	 */	
 	public void takeTurn(int pitChoice) {				
 		pitChoice = this.theGame.getBoardSize() - 2;

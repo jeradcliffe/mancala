@@ -70,14 +70,14 @@ public class Gui {
 		this.pnlChooseFirstPlayer = new NewGamePanel(this.theGame);
 		this.contentPane.add(this.pnlChooseFirstPlayer, BorderLayout.WEST);
 		
-		this.pnlHumanPlayer = new NewGamePanel(this.theGame);
+		this.pnlHumanPlayer = new HumanPlayerPanel(this.theGame);
 		this.contentPane.add(this.pnlHumanPlayer, BorderLayout.SOUTH);
 		this.pnlHumanPlayer.setEnabled(false);
 		
-		this.pnlGameInfo = new NewGamePanel(this.theGame);
+		this.pnlGameInfo = new GameStatusPanel(this.theGame);
 		this.contentPane.add(this.pnlGameInfo, BorderLayout.CENTER);
 		
-		this.pnlComputerPlayer = new NewGamePanel(this.theGame);
+		this.pnlComputerPlayer = new ComputerPlayerPanel(this.theGame);
 		this.contentPane.add(this.pnlComputerPlayer, BorderLayout.NORTH);
 		this.pnlComputerPlayer.setEnabled(false);
 		

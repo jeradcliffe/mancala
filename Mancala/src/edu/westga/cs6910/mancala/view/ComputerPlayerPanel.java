@@ -1,11 +1,16 @@
 package edu.westga.cs6910.mancala.view;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
@@ -52,6 +57,28 @@ public class ComputerPlayerPanel extends JPanel implements Observer {
 	
 	private void buildPanel() {
 		// TODO: Using the other panel classes as a model, build this panel.
+		this.setBorder(BorderFactory.createTitledBorder(this.theComputer.getName()));
+		this.setPreferredSize(new Dimension(250, 100));
+		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		
+		
+		this.add(Box.createHorizontalGlue());
+		this.add(new PitPanel(7, true, this.theGame));
+		this.add(Box.createRigidArea(new Dimension(30, 0)));
+		
+		this.add(Box.createRigidArea(new Dimension(95, 0)));	
+
+		for (int index = ComputerPlayerPanel.this.theGame.getBoardSize() - 2; index >= ComputerPlayerPanel.this.theGame.getBoardSize() / 2; index--) {
+			this.add(new PitPanel(index, false, this.theGame));
+			this.add(Box.createRigidArea(new Dimension(40, 0)));
+		}
+		
+		JButton btnTakeTurn = new JButton("Take Turn");
+		btnTakeTurn.setEnabled(false);
+		btnTakeTurn.addActionListener(new TakeTurnListener());
+		this.add(btnTakeTurn);
+		this.add(Box.createRigidArea(new Dimension(30, 0)));
+
 
 	}
 
@@ -118,7 +145,10 @@ public class ComputerPlayerPanel extends JPanel implements Observer {
 			//		 - Tell theGame to play a move.  Because this is
 			//		   the computer playing, just pass -1 as the 
 			//		   pit number
-
+			if (!ComputerPlayerPanel.this.theGame.getIsGameOver()) {
+				int pitChoice = -1;
+				ComputerPlayerPanel.this.theGame.play(pitChoice);
+			}
 		}
 	}
 }

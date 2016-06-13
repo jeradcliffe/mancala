@@ -28,7 +28,7 @@ public class HumanPlayer extends AbstractPlayer {
 
 	@Override
 	/**
-	 * @see Player#takeTurn()
+	 * @see AbstractPlayer#takeTurn()
 	 */
 	public void takeTurn(int pitChoice) {
 		while (this.theGame.getStones(pitChoice) == 0) {

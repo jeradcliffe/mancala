@@ -70,6 +70,7 @@ public class PitPanel extends JPanel implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		// TODO: Display the current number of stones inside
 		//		 this pit
-
+		this.lblNumberOfStones.setText("Stones: " 
+				+ this.theGame.getStones(this.pitNumber));
 	}
 }
