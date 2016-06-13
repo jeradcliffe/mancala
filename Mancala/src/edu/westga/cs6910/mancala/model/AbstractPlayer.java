@@ -19,7 +19,6 @@ public abstract class AbstractPlayer implements Player {
 	 * Creates an AbstractPlayer a specified name
 	 * 
 	 * @param	name	this Player's name
-	 * @param	theGame The Game that this player represents
 	 * 
 	 * @requires	name != null
 	 */
@@ -58,5 +57,5 @@ public abstract class AbstractPlayer implements Player {
 	 * @see edu.westga.cs6910.mancala.model.Player#takeTurn(int)
 	 */
 	@Override
-	abstract public void takeTurn(int pitChoice);
+	public abstract void takeTurn(int pitChoice);
 }
