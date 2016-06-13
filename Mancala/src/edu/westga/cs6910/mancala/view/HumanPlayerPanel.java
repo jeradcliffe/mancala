@@ -13,6 +13,7 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import edu.westga.cs6910.mancala.model.Game;
@@ -163,14 +164,32 @@ public class HumanPlayerPanel extends JPanel implements Observer {
 			} 
 		}
 
+		/**
+		 * This method will check to see if the user has selected a 
+		 * valid pit choice (one with stones inside). IF it is an 
+		 * invalid pit, show the JOptionPane's message box to offer a
+		 * descriptive error message so that user knows how to fix it.
+		 * 
+		 * @return true if the user has selected a valid pit
+		 */
 		private boolean isValidPit() {
 			// TODO: Check to be sure that the user selected a valid pit
 			//		 (one that has a pit number with stones inside)
 			//		 If it is an invalid pit, show a JOptionPane's message box
 			//		 to offer a descriptive error message so that they'll
 			//		 know what went wrong and how to fix it
-
-			return true;
+			int numberOfStones = 0;
+			boolean isValid = false;
+			try {
+				int pitChoice = HumanPlayerPanel.this.pitChoice.getSelectedIndex() - 1;
+				numberOfStones = HumanPlayerPanel.this.theGame.getStones(pitChoice);
+				if (numberOfStones > 0) {
+					isValid = true;
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, "No seeds in this pit.");
+			}		
+			return isValid;
 		}
 	}
 }

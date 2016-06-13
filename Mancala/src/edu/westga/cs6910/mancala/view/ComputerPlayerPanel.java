@@ -95,8 +95,7 @@ public class ComputerPlayerPanel extends JPanel implements Observer {
 	public void update(Observable arg0, Object arg1) {	
 		// TODO: Check to see if it is theComputer's turn.  If so
 		//		 enable the components, otherwise disable them
-
-
+		this.setEnabled(ComputerPlayerPanel.this.theComputer.getIsMyTurn());
 
 		if (this.theGame.getIsGameOver()) {
 			this.setEnabled(false);
