@@ -187,7 +187,7 @@ public class HumanPlayerPanel extends JPanel implements Observer {
 					isValid = true;
 				}
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, e.getMessage());
+				JOptionPane.showMessageDialog(null, "Must select a valid pit.");
 			}		
 			return isValid;
 		}
