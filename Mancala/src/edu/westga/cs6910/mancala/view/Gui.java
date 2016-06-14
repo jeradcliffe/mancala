@@ -149,7 +149,6 @@ public class Gui {
 			 * Enables the CyberPlayerPanel and starts a new game. 
 			 * Event handler for a click in the cyberPlayerButton.
 			 */
-			
 			public void actionPerformed(ActionEvent eventObject) {
 				NewGamePanel.this.theComputer.setIsMyTurn(true);
 				NewGamePanel.this.theHuman.setIsMyTurn(false);	

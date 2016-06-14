@@ -178,17 +178,20 @@ public class HumanPlayerPanel extends JPanel implements Observer {
 			//		 If it is an invalid pit, show a JOptionPane's message box
 			//		 to offer a descriptive error message so that they'll
 			//		 know what went wrong and how to fix it
-			int numberOfStones = 0;
 			boolean isValid = false;
 			try {
 				int pitChoice = HumanPlayerPanel.this.pitChoice.getSelectedIndex() - 1;
-				numberOfStones = HumanPlayerPanel.this.theGame.getStones(pitChoice);
-				if (numberOfStones > 0) {
+				int menuChoice = HumanPlayerPanel.this.pitChoice.getSelectedIndex();
+				if (menuChoice <= 0) {
+					JOptionPane.showMessageDialog(null, "Must select a valid pit.");
+				} else if (HumanPlayerPanel.this.theGame.getStones(pitChoice) <= 0) {
+					JOptionPane.showMessageDialog(null, "Pit does not contain any stones.");
+				} else {
 					isValid = true;
 				}
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "Must select a valid pit.");
-			}		
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
 			return isValid;
 		}
 	}
