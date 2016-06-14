@@ -227,7 +227,15 @@ public class Game extends Observable {
 		//       the current player and vice versa. Be sure to set 
 		//		 the player objects such that they know whose turn
 		//		 it is now that the positions have swapped
-
+		if (!this.currentPlayer.getIsMyTurn()) {
+			Player holder = this.getCurrentPlayer();
+			this.currentPlayer = this.otherPlayer;
+			this.otherPlayer = holder;
+			this.currentPlayer.setIsMyTurn(true);
+		}
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**

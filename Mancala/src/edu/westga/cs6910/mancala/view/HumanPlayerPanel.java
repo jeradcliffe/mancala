@@ -187,7 +187,7 @@ public class HumanPlayerPanel extends JPanel implements Observer {
 					isValid = true;
 				}
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(null, "No seeds in this pit.");
+				JOptionPane.showMessageDialog(null, e.getMessage());
 			}		
 			return isValid;
 		}
