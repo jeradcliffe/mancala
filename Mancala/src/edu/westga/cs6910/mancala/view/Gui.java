@@ -135,8 +135,8 @@ public class Gui {
 			group.add(this.radComputerPlayer);
 	
 			// TODO: Add the 2 radio buttons to this panel.
+			this.add(this.radComputerPlayer);			
 			this.add(this.radHumanPlayer);
-			this.add(this.radComputerPlayer);
 		}
 		
 		/* 

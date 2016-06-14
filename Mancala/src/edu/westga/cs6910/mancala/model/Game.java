@@ -49,7 +49,12 @@ public class Game extends Observable {
 		//		 pit specified and distribute them, one at
 		//		 a time into each pit (including stores)
 		//		 in counter-clockwise order
-
+		int stonesFromPit = this.getStones(pitNumber);
+		this.theBoard[pitNumber] = 0;
+		for (int index = 0; index <= stonesFromPit; index++) {
+			stonesFromPit--;
+			this.theBoard[pitNumber + index + 1]++;
+		}
 	}
 
 	/**
