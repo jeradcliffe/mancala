@@ -7,7 +7,6 @@ package edu.westga.cs6910.mancala.model;
  * @version Summer 2016
  */
 public class HumanPlayer extends AbstractPlayer {
-	private Game theGame;
 	
 	/**
 	 * Creates a new ComputerPlayer with the specified name.
@@ -19,11 +18,7 @@ public class HumanPlayer extends AbstractPlayer {
 	 * @ensure		name().equals(name) && getTotal() == 0
 	 */
 	public HumanPlayer(String name, Game theGame) {
-		super(name);
-		if (theGame == null) {
-			throw new IllegalArgumentException("Invalid Game object");
-		}
-		this.theGame = theGame;
+		super(name, theGame);
 	}
 
 	@Override
@@ -31,10 +26,10 @@ public class HumanPlayer extends AbstractPlayer {
 	 * @see AbstractPlayer#takeTurn()
 	 */
 	public void takeTurn(int pitChoice) {
-		while (this.theGame.getStones(pitChoice) == 0) {
+		while (super.getGame().getStones(pitChoice) == 0) {
 			pitChoice--;
 		}
-		this.theGame.distributeStonesFrom(pitChoice);
+		super.getGame().distributeStonesFrom(pitChoice);
 
 		super.setIsMyTurn(false);
 	}
