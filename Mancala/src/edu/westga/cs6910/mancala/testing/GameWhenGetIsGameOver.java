@@ -39,4 +39,20 @@ public class GameWhenGetIsGameOver {
 		newGame.startNewGame(human, computer);
 		assertEquals(false, newGame.getIsGameOver());
 	}
+	
+	/**
+	 * Test to see if game is truly over
+	 * after all pits are played
+	 */
+	@Test
+	public void testWhenGameHasFinished() {
+		Game newGame = new Game();
+		HumanPlayer human = new HumanPlayer("Jake", newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame);
+		newGame.startNewGame(human, computer);
+		for (int index = 0; index <= newGame.getBoardSize() - 1; index++) {
+			newGame.play(index);
+		}
+		assertEquals(true, newGame.getIsGameOver());
+	}
 }

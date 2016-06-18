@@ -23,6 +23,7 @@ public abstract class AbstractPlayer implements Player {
 	 * @param   theGame	the Game this Player is playing
 	 * 
 	 * @requires	name != null
+	 * 				theGame != null
 	 */
 	public AbstractPlayer(String name, Game theGame) {
 		if (name == null) {
