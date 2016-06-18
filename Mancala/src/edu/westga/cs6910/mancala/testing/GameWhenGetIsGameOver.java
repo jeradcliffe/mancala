@@ -39,5 +39,4 @@ public class GameWhenGetIsGameOver {
 		newGame.startNewGame(human, computer);
 		assertEquals(false, newGame.getIsGameOver());
 	}
-
 }

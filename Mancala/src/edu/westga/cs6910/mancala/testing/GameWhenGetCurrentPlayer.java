@@ -41,5 +41,41 @@ public class GameWhenGetCurrentPlayer {
 		newGame.startNewGame(computer, human);
 		assertEquals(computer, newGame.getCurrentPlayer());
 	}
+	
+	/**
+	 * Test to see if swap() method works via
+	 * the play()
+	 * 
+	 * Start a new game and set it up. 
+	 * Computer starts as current player and play() it's turn
+	 * Human should now be current player
+	 */
+	@Test
+	public void testGetCurrentPlayerAfterComputerToHumanSwap() {
+		Game newGame = new Game();
+		HumanPlayer human = new HumanPlayer("Jake", newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame);
+		newGame.startNewGame(computer, human);
+		newGame.play(6);
+		assertEquals(human, newGame.getCurrentPlayer());
+	}
+	
+	/**
+	 * Test to see if swap() method works via
+	 * the play()
+	 * 
+	 * Start a new game and set it up. 
+	 * Human starts as current player and play() it's turn
+	 * Computer should now be current player
+	 */
+	@Test
+	public void testGetCurrentPlayerAfterHumanToComputerSwap() {
+		Game newGame = new Game();
+		HumanPlayer human = new HumanPlayer("Jake", newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame);
+		newGame.startNewGame(human, computer);
+		newGame.play(2);
+		assertEquals(computer, newGame.getCurrentPlayer());
+	}
 
 }
