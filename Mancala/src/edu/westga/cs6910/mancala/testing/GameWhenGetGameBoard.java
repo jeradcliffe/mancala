@@ -42,10 +42,12 @@ public class GameWhenGetGameBoard {
 	/**
 	 * Start a new game and see if values match 
 	 * in each index of the array after one play 
-	 * on index 1
+	 * on index 0 from human
+	 * 
+	 * Human starts first
 	 */
 	@Test
-	public void testGetGameBoardAfterPlayPitOne() {
+	public void testGetGameBoardAfterHumanPlayPitZero() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame);
@@ -62,4 +64,32 @@ public class GameWhenGetGameBoard {
 		assertEquals(0, differencesCounter);
 	}
 
+	
+	/**
+	 * Start a new game and see if values match 
+	 * in each index of the array after one play 
+	 * on index 0 from human
+	 * 
+	 * Human starts first plays pit 0
+	 * Robot goes and plays pit 6 by default
+	 *  (will put in 765 as a random number to test)
+	 */
+	@Test
+	public void testGetGameBoardAfterRobotTakesSecondTurn() {
+		Game newGame = new Game();
+		HumanPlayer human = new HumanPlayer("Jake", newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame);
+		newGame.startNewGame(human, computer);
+		newGame.play(0);
+		newGame.play(765);
+		
+		int[] expected = new int[]{0, 2, 1, 0, 1, 1, 0, 1};
+		int differencesCounter = 0;
+		for (int index = 0; index < newGame.getBoardSize(); index++) {
+			if (expected[index] != newGame.getGameBoard()[index]) {
+				differencesCounter++;
+			}
+		}
+		assertEquals(0, differencesCounter);
+	}
 }
