@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
-import edu.westga.cs6910.mancala.model.HumanPlayer;
 
 /**
  * Testing class to see if we are able to create a game
@@ -20,15 +18,22 @@ public class GameWhenGetHumanPlayer {
 
 	/**
 	 * Testing to see if we can getHumanPlayer()
-	 * from the Game
+	 * name from the Game
 	 */
 	@Test
-	public void testGetHumanPlayer() {
+	public void testGetHumanPlayerName() {
 		Game newGame = new Game();
-		HumanPlayer human = new HumanPlayer("Frank", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
-		newGame.startNewGame(human, computer);
-		assertEquals(human, newGame.getHumanPlayer());
+		assertEquals("Me", newGame.getHumanPlayer().getName());
+	}
+	
+	/**
+	 * Testing to see if we can get the Game
+	 * that the human player is playing
+	 */
+	@Test
+	public void testGetHumanPlayerGame() {
+		Game newGame = new Game();
+		assertEquals(newGame, newGame.getHumanPlayer().getGame());
 	}
 
 }
