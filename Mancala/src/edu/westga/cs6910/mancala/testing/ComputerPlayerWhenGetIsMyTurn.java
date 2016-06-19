@@ -10,32 +10,15 @@ import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
 
 /**
- * Test to see is we are successfully able to 
- * see whether or not it is our abstract players turn
+ * Tests when the computer player
  * 
- * Note: Due to the void method types of both
- * setIsMyTurn() and takeTurn(), we need to have those
- * used in this test class, followed by the getIsMyTurn()
- * to check for validity
  * 
  * @author Jacob Radcliffe
  * @version 6/19/16
+ *
  */
-public class AbstractPlayerWhenGetIsMyTurn {
+public class ComputerPlayerWhenGetIsMyTurn {
 
-	/**
-	 * Set up a new game with the human player and see if
-	 * the setIsMyTurn() will return true when getIsMyTurn()
-	 * is called
-	 */
-	@Test
-	public void testAbstractHumansTurnIsTrue() {
-		Game newGame = new Game();
-		AbstractPlayer human = new HumanPlayer("Jake", newGame);
-		human.setIsMyTurn(true);
-		assertEquals(true, human.getIsMyTurn());
-	}
-	
 	/**
 	 * Set up a new game with the computer player and see if
 	 * the setIsMyTurn() will return true when getIsMyTurn()
@@ -49,28 +32,10 @@ public class AbstractPlayerWhenGetIsMyTurn {
 		assertEquals(true, computer.getIsMyTurn());
 	}
 	
+
 	/**
-	 * Test to see if it is the human's turn after he 
-	 * plays one turn 
-	 * 
-	 * Note: takeTurn() is used by the play() method.
-	 * However, it can still be used independently, but
-	 * it wont swap() turns to the other player when
-	 * used. Only the play() method will do this.
-	 */
-	@Test
-	public void testAbstractHumansTurnIsFalseAfterTakesTurn() {
-		Game newGame = new Game();
-		AbstractPlayer human = new HumanPlayer("Jake", newGame);
-		AbstractPlayer computer = new ComputerPlayer(newGame);
-		newGame.startNewGame(human, computer);
-		human.takeTurn(0);
-		assertEquals(false, human.getIsMyTurn());
-	}
-	
-	/**
-	 * Test to see if it is the computer's turn after he 
-	 * plays one turn 
+	 * Test to see if it is the computer's turn after it 
+	 * plays one turn (should return false)
 	 * 
 	 * Note: takeTurn() is used by the play() method.
 	 * However, it can still be used independently, but
@@ -107,7 +72,7 @@ public class AbstractPlayerWhenGetIsMyTurn {
 	}
 	
 	/**
-	 * Test to see if it is the human's turn after computer 
+	 * Test to see if it is the computer's turn after computer 
 	 * plays one turn 
 	 * 
 	 * Note: takeTurn() is used by the play() method.
@@ -116,13 +81,14 @@ public class AbstractPlayerWhenGetIsMyTurn {
 	 * used. Only the play() method will do this.
 	 */
 	@Test
-	public void testAbstractHumansTurnIsTrueAfterComputerPlaysOnce() {
+	public void testAbstractComputersTurnFalseAfterComputerPlaysOnce() {
 		Game newGame = new Game();
 		AbstractPlayer human = new HumanPlayer("Jake", newGame);
 		AbstractPlayer computer = new ComputerPlayer(newGame);
 		newGame.startNewGame(computer, human);
 		newGame.play(0);
-		assertEquals(true, human.getIsMyTurn());
+		assertEquals(false, computer.getIsMyTurn());
 	}
 
 }
+
