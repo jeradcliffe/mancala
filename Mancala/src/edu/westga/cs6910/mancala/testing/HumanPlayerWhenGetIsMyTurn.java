@@ -10,7 +10,7 @@ import edu.westga.cs6910.mancala.model.HumanPlayer;
 
 /**
  * Test to see is we are successfully able to 
- * see whether or not it is our human players turn
+ * see whether or not it is our human player's turn
  * 
  * Note: Due to the void method types of both
  * setIsMyTurn() and takeTurn(), we need to have those
@@ -66,7 +66,7 @@ public class HumanPlayerWhenGetIsMyTurn {
 	 * used. Only the play() method will do this.
 	 */
 	@Test
-	public void testComputersTurnIsTrueAfterHumanPlaysOnce() {
+	public void testHumansTurnIsFalseAfterHumanPlaysOnce() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame);
