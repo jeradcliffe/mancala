@@ -9,7 +9,7 @@ import edu.westga.cs6910.mancala.model.Game;
 
 /**
  * Tests when the computer player
- * 
+ * getGame() that is is playing
  * 
  * @author Jacob Radcliffe
  * @version 6/19/16

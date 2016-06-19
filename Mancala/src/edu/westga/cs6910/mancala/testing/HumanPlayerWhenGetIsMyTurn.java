@@ -10,7 +10,7 @@ import edu.westga.cs6910.mancala.model.HumanPlayer;
 
 /**
  * Test to see is we are successfully able to 
- * see whether or not it is our computer players turn
+ * see whether or not it is our human players turn
  * 
  * Note: Due to the void method types of both
  * setIsMyTurn() and takeTurn(), we need to have those
@@ -21,25 +21,24 @@ import edu.westga.cs6910.mancala.model.HumanPlayer;
  * @version 6/19/16
  *
  */
-public class ComputerPlayerWhenGetIsMyTurn {
+public class HumanPlayerWhenGetIsMyTurn {
 
 	/**
-	 * Set up a new game with the computer player and see if
+	 * Set up a new game with the human player and see if
 	 * the setIsMyTurn() will return true when getIsMyTurn()
 	 * is called
 	 */
 	@Test
-	public void testComputersTurnIsTrue() {
+	public void testHumansTurnIsTrue() {
 		Game newGame = new Game();
-		ComputerPlayer computer = new ComputerPlayer(newGame);
-		computer.setIsMyTurn(true);
-		assertEquals(true, computer.getIsMyTurn());
+		HumanPlayer human = new HumanPlayer("Jake", newGame);
+		human.setIsMyTurn(true);
+		assertEquals(true, human.getIsMyTurn());
 	}
 	
-
 	/**
-	 * Test to see if it is the computer's turn after it 
-	 * plays one turn (should return false)
+	 * Test to see if it is the human's turn after he 
+	 * plays one turn 
 	 * 
 	 * Note: takeTurn() is used by the play() method.
 	 * However, it can still be used independently, but
@@ -47,14 +46,15 @@ public class ComputerPlayerWhenGetIsMyTurn {
 	 * used. Only the play() method will do this.
 	 */
 	@Test
-	public void testComputersTurnIsFalseAfterTakesTurn() {
+	public void testHumansTurnIsFalseAfterTakesTurn() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame);
-		newGame.startNewGame(computer, human);
-		computer.takeTurn(0);
-		assertEquals(false, computer.getIsMyTurn());
+		newGame.startNewGame(human, computer);
+		human.takeTurn(0);
+		assertEquals(false, human.getIsMyTurn());
 	}
+	
 	
 	/**
 	 * Test to see if it is the computer's turn after human 
@@ -72,11 +72,11 @@ public class ComputerPlayerWhenGetIsMyTurn {
 		ComputerPlayer computer = new ComputerPlayer(newGame);
 		newGame.startNewGame(human, computer);
 		newGame.play(0);
-		assertEquals(true, computer.getIsMyTurn());
+		assertEquals(false, human.getIsMyTurn());
 	}
 	
 	/**
-	 * Test to see if it is the computer's turn after computer 
+	 * Test to see if it is the human's turn after computer 
 	 * plays one turn 
 	 * 
 	 * Note: takeTurn() is used by the play() method.
@@ -85,13 +85,13 @@ public class ComputerPlayerWhenGetIsMyTurn {
 	 * used. Only the play() method will do this.
 	 */
 	@Test
-	public void testComputersTurnFalseAfterComputerPlaysOnce() {
+	public void testHumansTurnIsTrueAfterComputerPlaysOnce() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame);
 		newGame.startNewGame(computer, human);
 		newGame.play(0);
-		assertEquals(false, computer.getIsMyTurn());
+		assertEquals(true, human.getIsMyTurn());
 	}
 
 }
