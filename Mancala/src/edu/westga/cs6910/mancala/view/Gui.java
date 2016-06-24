@@ -10,8 +10,14 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.KeyStroke;
+
+import com.sun.glass.events.KeyEvent;
 
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
@@ -59,6 +65,7 @@ public class Gui {
 				
 		this.contentPane = this.theFrame.getContentPane();
 		this.buildContentPane();
+		this.buildMenuBar();
 
 		this.theFrame.setMinimumSize(new Dimension(800, 200));
 		this.theFrame.pack();
@@ -88,6 +95,82 @@ public class Gui {
 		//		 3. Instantiate this.pnlComputerPlayer, add it to
 		//			the content pane at the top, and disable it.	
 
+	}
+	
+	/**
+	 * Builds the menu bar for our GUI
+	 * 
+	 * Has a file menu with an exit option
+	 * 
+	 * Has a Settings menu with a Computer Player Option
+	 * -Computer Player option opens up a pop up menu with:
+	 * 		1)Close (closest seed to store moves)
+	 * 		2)Far (farthest seed from store moves)
+	 * 		3)Random (randomly picks a seed to move)
+	 *
+	 */
+	private void buildMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+
+		menuBar.add(this.buildFileMenu());
+		menuBar.add(this.buildSettingsMenu());
+		
+		this.theFrame.setJMenuBar(menuBar);
+	}
+	
+	/**
+	 * Builds a File menu with an exit option to add to
+	 * the menu bar
+	 */
+	private JMenu buildFileMenu() {
+		JMenu file = new JMenu("File");
+		file.setMnemonic(KeyEvent.VK_F);
+		
+		JMenuItem exitMenuItem = new JMenuItem("Exit");
+		exitMenuItem.setMnemonic(KeyEvent.VK_X);
+		exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_X, ActionEvent.ALT_MASK));
+		
+		exitMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		
+		file.add(exitMenuItem);
+		
+		return file;
+	}
+	
+	/**
+	 * Builds a Settings menu for menu bar with:
+	 * 
+	 * -Computer Player option opens up a pop up menu with:
+	 * 		1)Close (closest seed to store moves)
+	 * 		2)Far (farthest seed from store moves)
+	 * 		3)Random (randomly picks a seed to move)
+	 */
+	private JMenu buildSettingsMenu() {
+		JMenu settings = new JMenu("Settings");
+		settings.setMnemonic(KeyEvent.VK_S);
+		
+		JMenu computerPlayerSubmenu = new JMenu("Computer Player");
+		computerPlayerSubmenu.setMnemonic(KeyEvent.VK_P);
+		
+		JMenuItem closeItem = new JMenuItem("Close");
+		closeItem.setMnemonic(KeyEvent.VK_C);		
+		JMenuItem farItem = new JMenuItem("Far");
+		farItem.setMnemonic(KeyEvent.VK_A);
+		JMenuItem randomItem = new JMenuItem("Random");
+		randomItem.setMnemonic(KeyEvent.VK_R);
+		
+		settings.add(computerPlayerSubmenu);
+		computerPlayerSubmenu.add(closeItem);
+		computerPlayerSubmenu.add(farItem);
+		computerPlayerSubmenu.add(randomItem);
+		
+		return settings;
 	}
 
 	/*
