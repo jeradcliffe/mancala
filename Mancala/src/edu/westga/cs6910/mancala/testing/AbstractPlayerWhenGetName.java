@@ -8,6 +8,7 @@ import edu.westga.cs6910.mancala.model.AbstractPlayer;
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Test class to see if we are able to retrieve
@@ -38,7 +39,7 @@ public class AbstractPlayerWhenGetName {
 	@Test
 	public void testAbstractComputerGetsComputerName() {
 		Game newGame = new Game();
-		AbstractPlayer computer = new ComputerPlayer(newGame);
+		AbstractPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		assertEquals("Simple computer", computer.getName());
 	}
 

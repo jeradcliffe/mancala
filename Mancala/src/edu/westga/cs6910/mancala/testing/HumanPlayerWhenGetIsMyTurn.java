@@ -7,6 +7,7 @@ import org.junit.Test;
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Test to see is we are successfully able to 
@@ -49,7 +50,7 @@ public class HumanPlayerWhenGetIsMyTurn {
 	public void testHumansTurnIsFalseAfterTakesTurn() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		human.takeTurn(0);
 		assertEquals(false, human.getIsMyTurn());
@@ -69,7 +70,7 @@ public class HumanPlayerWhenGetIsMyTurn {
 	public void testHumansTurnIsFalseAfterHumanPlaysOnce() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		newGame.play(0);
 		assertEquals(false, human.getIsMyTurn());
@@ -88,7 +89,7 @@ public class HumanPlayerWhenGetIsMyTurn {
 	public void testHumansTurnIsTrueAfterComputerPlaysOnce() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(computer, human);
 		newGame.play(0);
 		assertEquals(true, human.getIsMyTurn());

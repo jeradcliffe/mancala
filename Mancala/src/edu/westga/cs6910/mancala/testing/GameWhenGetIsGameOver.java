@@ -7,6 +7,7 @@ import org.junit.Test;
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Test class to clarify if a game is 
@@ -35,7 +36,7 @@ public class GameWhenGetIsGameOver {
 	public void testWhenGameFirstStartsIsNotOver() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		assertEquals(false, newGame.getIsGameOver());
 	}
@@ -48,7 +49,7 @@ public class GameWhenGetIsGameOver {
 	public void testWhenGameHasFinished() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		for (int index = 0; index <= newGame.getBoardSize() - 1; index++) {
 			newGame.play(index);

@@ -8,6 +8,7 @@ import edu.westga.cs6910.mancala.model.AbstractPlayer;
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Test to see is we are successfully able to 
@@ -44,7 +45,7 @@ public class AbstractPlayerWhenGetIsMyTurn {
 	@Test
 	public void testAbstractComputersTurnIsTrue() {
 		Game newGame = new Game();
-		AbstractPlayer computer = new ComputerPlayer(newGame);
+		AbstractPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		computer.setIsMyTurn(true);
 		assertEquals(true, computer.getIsMyTurn());
 	}
@@ -62,7 +63,7 @@ public class AbstractPlayerWhenGetIsMyTurn {
 	public void testAbstractHumansTurnIsFalseAfterTakesTurn() {
 		Game newGame = new Game();
 		AbstractPlayer human = new HumanPlayer("Jake", newGame);
-		AbstractPlayer computer = new ComputerPlayer(newGame);
+		AbstractPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		human.takeTurn(0);
 		assertEquals(false, human.getIsMyTurn());
@@ -81,7 +82,7 @@ public class AbstractPlayerWhenGetIsMyTurn {
 	public void testAbstractComputersTurnIsFalseAfterTakesTurn() {
 		Game newGame = new Game();
 		AbstractPlayer human = new HumanPlayer("Jake", newGame);
-		AbstractPlayer computer = new ComputerPlayer(newGame);
+		AbstractPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(computer, human);
 		computer.takeTurn(0);
 		assertEquals(false, computer.getIsMyTurn());
@@ -100,7 +101,7 @@ public class AbstractPlayerWhenGetIsMyTurn {
 	public void testAbstractComputersTurnIsTrueAfterHumanPlaysOnce() {
 		Game newGame = new Game();
 		AbstractPlayer human = new HumanPlayer("Jake", newGame);
-		AbstractPlayer computer = new ComputerPlayer(newGame);
+		AbstractPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		newGame.play(0);
 		assertEquals(true, computer.getIsMyTurn());
@@ -119,7 +120,7 @@ public class AbstractPlayerWhenGetIsMyTurn {
 	public void testAbstractHumansTurnIsTrueAfterComputerPlaysOnce() {
 		Game newGame = new Game();
 		AbstractPlayer human = new HumanPlayer("Jake", newGame);
-		AbstractPlayer computer = new ComputerPlayer(newGame);
+		AbstractPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(computer, human);
 		newGame.play(0);
 		assertEquals(true, human.getIsMyTurn());

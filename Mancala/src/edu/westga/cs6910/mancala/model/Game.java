@@ -2,6 +2,8 @@ package edu.westga.cs6910.mancala.model;
 
 import java.util.Observable;
 
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
+
 /**
  * Game represents a Mancala game.
  * @author	Jacob Radcliffe
@@ -25,7 +27,7 @@ public class Game extends Observable {
 	 */
 	public Game() {
 		this.theHuman = new HumanPlayer("Me", this);
-		this.theComputer = new ComputerPlayer(this);
+		this.theComputer = new ComputerPlayer(this, new CloseStrategy());
 		
 		this.currentPlayer = null;
 		this.otherPlayer = null;

@@ -7,6 +7,7 @@ import org.junit.Test;
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Test to see if we are able to extract the 
@@ -26,7 +27,7 @@ public class GameWhenGetGameBoard {
 	public void testGetGameBoardWhenStartNewGame() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		
 		int[] expected = new int[]{1, 1, 1, 0, 1, 1, 1, 0};
@@ -50,7 +51,7 @@ public class GameWhenGetGameBoard {
 	public void testGetGameBoardAfterHumanPlayPitZero() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		newGame.play(0);
 		
@@ -78,7 +79,7 @@ public class GameWhenGetGameBoard {
 	public void testGetGameBoardAfterRobotTakesSecondTurn() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		newGame.play(0);
 		newGame.play(765);

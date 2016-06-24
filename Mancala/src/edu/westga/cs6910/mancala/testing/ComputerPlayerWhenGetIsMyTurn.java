@@ -7,6 +7,7 @@ import org.junit.Test;
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Test to see is we are successfully able to 
@@ -31,7 +32,7 @@ public class ComputerPlayerWhenGetIsMyTurn {
 	@Test
 	public void testComputersTurnIsTrue() {
 		Game newGame = new Game();
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		computer.setIsMyTurn(true);
 		assertEquals(true, computer.getIsMyTurn());
 	}
@@ -50,7 +51,7 @@ public class ComputerPlayerWhenGetIsMyTurn {
 	public void testComputersTurnIsFalseAfterTakesTurn() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(computer, human);
 		computer.takeTurn(0);
 		assertEquals(false, computer.getIsMyTurn());
@@ -69,7 +70,7 @@ public class ComputerPlayerWhenGetIsMyTurn {
 	public void testComputersTurnIsTrueAfterHumanPlaysOnce() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		newGame.play(0);
 		assertEquals(true, computer.getIsMyTurn());
@@ -88,7 +89,7 @@ public class ComputerPlayerWhenGetIsMyTurn {
 	public void testComputersTurnFalseAfterComputerPlaysOnce() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(computer, human);
 		newGame.play(0);
 		assertEquals(false, computer.getIsMyTurn());

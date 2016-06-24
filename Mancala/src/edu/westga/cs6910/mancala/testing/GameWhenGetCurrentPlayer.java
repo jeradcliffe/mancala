@@ -7,6 +7,7 @@ import org.junit.Test;
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.HumanPlayer;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * This is a test class to see if we are able to
@@ -25,7 +26,7 @@ public class GameWhenGetCurrentPlayer {
 	public void testGetCurrentPlayerShoudlBeHuman() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		assertEquals(human, newGame.getCurrentPlayer());
 	}
@@ -37,7 +38,7 @@ public class GameWhenGetCurrentPlayer {
 	public void testGetCurrentPlayerShoudlBeComputer() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(computer, human);
 		assertEquals(computer, newGame.getCurrentPlayer());
 	}
@@ -54,7 +55,7 @@ public class GameWhenGetCurrentPlayer {
 	public void testGetCurrentPlayerAfterComputerToHumanSwap() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(computer, human);
 		newGame.play(6);
 		assertEquals(human, newGame.getCurrentPlayer());
@@ -72,7 +73,7 @@ public class GameWhenGetCurrentPlayer {
 	public void testGetCurrentPlayerAfterHumanToComputerSwap() {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
 		newGame.play(2);
 		assertEquals(computer, newGame.getCurrentPlayer());

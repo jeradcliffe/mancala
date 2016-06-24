@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import edu.westga.cs6910.mancala.model.ComputerPlayer;
 import edu.westga.cs6910.mancala.model.Game;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Tests when the computer player
@@ -25,7 +26,7 @@ public class ComputerPlayerWhenGetName {
 	@Test
 	public void testComputerGetsItsName() {
 		Game newGame = new Game();
-		ComputerPlayer computer = new ComputerPlayer(newGame);
+		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		assertEquals("Simple computer", computer.getName());
 	}
 }
