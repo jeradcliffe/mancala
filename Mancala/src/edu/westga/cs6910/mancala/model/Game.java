@@ -53,8 +53,17 @@ public class Game extends Observable {
 		//		 in counter-clockwise order
 		int stonesFromPit = this.getStones(pitNumber);
 		this.theBoard[pitNumber] = 0;
+		
+		int pitLoopNumber = 0;
+		
 		for (int index = 1; index <= stonesFromPit; index++) {
-			this.theBoard[pitNumber + index] += 1;
+			if (index + pitNumber <= 7) {
+				this.theBoard[pitNumber + index] += 1;	
+			} else {
+				this.theBoard[pitLoopNumber] += 1;
+				pitLoopNumber++;
+			}
+			
 		}
 	}
 

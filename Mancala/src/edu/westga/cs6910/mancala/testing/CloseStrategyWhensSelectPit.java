@@ -15,10 +15,10 @@ import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 public class CloseStrategyWhensSelectPit {
 	
 	/**
-	 * Test a normally set up game board
+	 * Test a normally (new game) set up game board
 	 * -Each pit has one stone besides stores
 	 * 
-	 * Return
+	 * Return pit 6
 	 */
 	@Test
 	public void testReturnPit6() {

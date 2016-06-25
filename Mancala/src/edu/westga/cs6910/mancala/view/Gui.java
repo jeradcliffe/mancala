@@ -22,6 +22,7 @@ import com.sun.glass.events.KeyEvent;
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
 import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
+import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
 
 /**
  * Defines a GUI for the Pig game.
@@ -170,6 +171,12 @@ public class Gui {
 		
 		JMenuItem farItem = new JMenuItem("Far");
 		farItem.setMnemonic(KeyEvent.VK_A);
+		farItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Gui.this.theGame.getComputerPlayer().setStrategy(new FarStrategy());
+			}
+		});
 		
 		
 		JMenuItem randomItem = new JMenuItem("Random");

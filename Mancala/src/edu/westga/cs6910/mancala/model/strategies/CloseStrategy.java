@@ -11,7 +11,7 @@ package edu.westga.cs6910.mancala.model.strategies;
 public class CloseStrategy implements SelectStrategy {
 
 	/**
-	 * Default constructor (not used in program)
+	 * Default constructor
 	 */
 	public CloseStrategy() {
 	}
@@ -26,7 +26,7 @@ public class CloseStrategy implements SelectStrategy {
 		}
 		
 		int pitNumber = theGame.length - 2;
-		while (theGame[pitNumber] == 0) {
+		while (theGame[pitNumber] <= 0) {
 			pitNumber--;
 		}
 		
