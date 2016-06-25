@@ -23,6 +23,7 @@ import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
 import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
+import edu.westga.cs6910.mancala.model.strategies.RandomStrategy;
 
 /**
  * Defines a GUI for the Pig game.
@@ -160,37 +161,87 @@ public class Gui {
 		JMenu computerPlayerSubmenu = new JMenu("Computer Player");
 		computerPlayerSubmenu.setMnemonic(KeyEvent.VK_P);
 		
+		settings.add(computerPlayerSubmenu);
+		computerPlayerSubmenu.add(this.buildCloseItem());
+		computerPlayerSubmenu.add(this.buildFarItem());
+		computerPlayerSubmenu.add(this.buildRandomItem());
+		
+		return settings;
+	}
+	
+	/**
+	 * Builds our close item for our menu
+	 * 
+	 * @return closeItem	JMenuItem that allows computer
+	 * 						to use close strategy
+	 */
+	private JMenuItem buildCloseItem() {
 		JMenuItem closeItem = new JMenuItem("Close");
+		
 		closeItem.setMnemonic(KeyEvent.VK_C);
+		
+		closeItem.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_C, ActionEvent.ALT_MASK));
+		
 		closeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Gui.this.theGame.getComputerPlayer().setStrategy(new CloseStrategy());
 			}
-		});		
+		});	
 		
+		return closeItem;
+	}
+	
+	/**
+	 * Builds our far item for our menu
+	 * 
+	 * @return farItem	JMenuItem that allows computer
+	 * 					to use far strategy
+	 */
+	private JMenuItem buildFarItem() {
 		JMenuItem farItem = new JMenuItem("Far");
+		
 		farItem.setMnemonic(KeyEvent.VK_A);
+		
+		farItem.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_A, ActionEvent.ALT_MASK));
+		
 		farItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				Gui.this.theGame.getComputerPlayer().setStrategy(new FarStrategy());
 			}
-		});
+		});	
 		
-		
+		return farItem;
+	}
+	
+	/**
+	 * Builds our random item for our menu
+	 * 
+	 * @return randomItem	JMenuItem that allows computer
+	 * 						to use random strategy
+	 */
+	private JMenuItem buildRandomItem() {
 		JMenuItem randomItem = new JMenuItem("Random");
+		
 		randomItem.setMnemonic(KeyEvent.VK_R);
 		
+		randomItem.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_R, ActionEvent.ALT_MASK));
 		
-		settings.add(computerPlayerSubmenu);
-		computerPlayerSubmenu.add(closeItem);
-		computerPlayerSubmenu.add(farItem);
-		computerPlayerSubmenu.add(randomItem);
+		randomItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Gui.this.theGame.getComputerPlayer().setStrategy(new RandomStrategy());
+			}
+		});
 		
-		return settings;
+		return randomItem;
 	}
 
+	/////////////////////////////////////////////////
 	/*
 	 * Defines the panel in which the user selects which Player plays first.
 	 */
