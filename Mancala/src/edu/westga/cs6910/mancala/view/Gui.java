@@ -21,6 +21,7 @@ import com.sun.glass.events.KeyEvent;
 
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
+import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Defines a GUI for the Pig game.
@@ -159,11 +160,21 @@ public class Gui {
 		computerPlayerSubmenu.setMnemonic(KeyEvent.VK_P);
 		
 		JMenuItem closeItem = new JMenuItem("Close");
-		closeItem.setMnemonic(KeyEvent.VK_C);		
+		closeItem.setMnemonic(KeyEvent.VK_C);
+		closeItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Gui.this.theGame.getComputerPlayer().setStrategy(new CloseStrategy());
+			}
+		});		
+		
 		JMenuItem farItem = new JMenuItem("Far");
 		farItem.setMnemonic(KeyEvent.VK_A);
+		
+		
 		JMenuItem randomItem = new JMenuItem("Random");
 		randomItem.setMnemonic(KeyEvent.VK_R);
+		
 		
 		settings.add(computerPlayerSubmenu);
 		computerPlayerSubmenu.add(closeItem);

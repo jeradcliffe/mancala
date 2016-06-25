@@ -78,8 +78,6 @@ public class ComputerPlayerPanel extends JPanel implements Observer {
 		btnTakeTurn.addActionListener(new TakeTurnListener());
 		this.add(btnTakeTurn);
 		this.add(Box.createRigidArea(new Dimension(30, 0)));
-
-
 	}
 
 	/** 

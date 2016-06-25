@@ -29,6 +29,9 @@ public class ComputerPlayer extends AbstractPlayer {
 	 */
 	public ComputerPlayer(Game theGame, SelectStrategy newStrategy) {
 		super(NAME, theGame);
+		if (theGame == null) {
+			throw new IllegalArgumentException("No game exists for the computer");
+		}
 		if (newStrategy == null) {
 			throw new IllegalArgumentException("No strategy selected for comptuer.");
 		}
@@ -42,8 +45,11 @@ public class ComputerPlayer extends AbstractPlayer {
 	 * @see AbstractPlayer#takeTurn()
 	 */	
 	public void takeTurn(int pitChoice) {				
+		
 		pitChoice = this.strategy.selectPit(super.getGame().getGameBoard());
 		//6d needs a second look
+		//this.setStrategy(new CloseStrategy());
+		//this.strategy = new CloseStrategy();
 		
 		super.getGame().distributeStonesFrom(pitChoice);
 

@@ -14,7 +14,6 @@ public class CloseStrategy implements SelectStrategy {
 	 * Default constructor (not used in program)
 	 */
 	public CloseStrategy() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/* (non-Javadoc)
