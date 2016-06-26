@@ -9,7 +9,6 @@ import edu.westga.cs6910.mancala.view.Gui;
  * 
  * @author CS6910
  * @version Summer 2016
- *
  */
 public class ApplicationController {
 

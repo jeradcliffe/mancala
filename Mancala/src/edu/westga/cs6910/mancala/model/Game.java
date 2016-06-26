@@ -6,6 +6,7 @@ import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
  * Game represents a Mancala game.
+ * 
  * @author	Jacob Radcliffe
  * @version	Summer 2016
  */
@@ -23,7 +24,6 @@ public class Game extends Observable {
 
 	/**
 	 * Creates a Mancala Game with the specified Players
-	 * 
 	 */
 	public Game() {
 		this.theHuman = new HumanPlayer("Me", this);
@@ -63,7 +63,6 @@ public class Game extends Observable {
 				this.theBoard[pitLoopNumber] += 1;
 				pitLoopNumber++;
 			}
-			
 		}
 	}
 
@@ -146,7 +145,6 @@ public class Game extends Observable {
 		} else {
 			this.swapWhoseTurn();
 		}
-				
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -159,7 +157,6 @@ public class Game extends Observable {
 		if (humanStoneCount == 0) {
 			return this.theHuman;
 		}
-		
 		int computerStoneCount = 0;
 		for (int index = this.theBoard.length / 2; index < this.theBoard.length - 1; index++) {
 			computerStoneCount += this.theBoard[index];
@@ -248,7 +245,6 @@ public class Game extends Observable {
 			this.otherPlayer = holder;
 			this.currentPlayer.setIsMyTurn(true);
 		}
-		
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -270,7 +266,6 @@ public class Game extends Observable {
 		} else if (this.isGameOver && this.theWinner == null) {
 			result += "Tie game";
 		}
-
 		result += "</body></html>";
 		return result;
 	}

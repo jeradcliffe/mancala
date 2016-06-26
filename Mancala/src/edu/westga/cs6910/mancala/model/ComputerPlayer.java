@@ -35,24 +35,17 @@ public class ComputerPlayer extends AbstractPlayer {
 		if (newStrategy == null) {
 			throw new IllegalArgumentException("No strategy selected for comptuer.");
 		}
-		
 		this.strategy = newStrategy;
-		
 	}
 
-	@Override
-	/**
+	
+	/*
 	 * @see AbstractPlayer#takeTurn()
 	 */	
+	@Override
 	public void takeTurn(int pitChoice) {				
-		
 		pitChoice = this.strategy.selectPit(super.getGame().getGameBoard());
-		//6d needs a second look
-		//this.setStrategy(new CloseStrategy());
-		//this.strategy = new CloseStrategy();
-		
 		super.getGame().distributeStonesFrom(pitChoice);
-
 		super.setIsMyTurn(false);
 	}
 	

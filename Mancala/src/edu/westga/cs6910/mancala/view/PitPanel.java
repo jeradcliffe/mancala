@@ -41,7 +41,6 @@ public class PitPanel extends JPanel implements Observer {
 		if (theGame == null) {
 			throw new IllegalArgumentException("Invalid Game object");
 		}
-		
 		this.pitNumber = pitNumber;
 		this.theGame = theGame;
 		this.theGame.addObserver(this);
@@ -59,7 +58,6 @@ public class PitPanel extends JPanel implements Observer {
 		} else {
 			this.lblPitNumber = new JLabel("Pit: " + this.pitNumber);
 		}
-		
 		this.add(this.lblPitNumber);
 		
 		this.lblNumberOfStones = new JLabel("Stones: 0");

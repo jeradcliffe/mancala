@@ -49,9 +49,7 @@ public class ComputerPlayerPanel extends JPanel implements Observer {
 		// TODO: Add this object as an observer of this.theGame.
 		//       See http://tinyurl.com/javaObserverPattern
 		this.theGame.addObserver(this);
-		
 		this.theComputer = this.theGame.getComputerPlayer();
-		
 		this.buildPanel();
 	}
 	
@@ -60,7 +58,6 @@ public class ComputerPlayerPanel extends JPanel implements Observer {
 		this.setBorder(BorderFactory.createTitledBorder(this.theComputer.getName()));
 		this.setPreferredSize(new Dimension(250, 100));
 		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		
 		
 		this.add(Box.createHorizontalGlue());
 		this.add(new PitPanel(7, true, this.theGame));
@@ -72,7 +69,6 @@ public class ComputerPlayerPanel extends JPanel implements Observer {
 			this.add(new PitPanel(index, false, this.theGame));
 			this.add(Box.createRigidArea(new Dimension(40, 0)));
 		}
-		
 		JButton btnTakeTurn = new JButton("Take Turn");
 		btnTakeTurn.setEnabled(false);
 		btnTakeTurn.addActionListener(new TakeTurnListener());

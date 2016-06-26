@@ -6,7 +6,6 @@ package edu.westga.cs6910.mancala.model.strategies;
  * 
  * @author Jacob Radcliffe
  * @version 6/25/16
- *
  */
 public class FarStrategy implements SelectStrategy {
 
@@ -25,12 +24,10 @@ public class FarStrategy implements SelectStrategy {
 		if (theGame == null) {
 			throw new IllegalArgumentException("Can't select pit. No game board exists");
 		}
-		
 		int pitNumber = theGame.length / 2;
 		while (theGame[pitNumber] <= 0  && pitNumber <= theGame.length - 2) {
 			pitNumber++;
 		}
-		
 		return pitNumber;
 	}
 

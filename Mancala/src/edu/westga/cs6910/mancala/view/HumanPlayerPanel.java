@@ -49,7 +49,6 @@ public class HumanPlayerPanel extends JPanel implements Observer {
 		if (theGame == null) {
 			throw new IllegalArgumentException("Invalid Game object");
 		}
-		
 		this.theGame = theGame;
 		this.theGame.addObserver(this);
 		this.theHuman = this.theGame.getHumanPlayer();
@@ -85,7 +84,6 @@ public class HumanPlayerPanel extends JPanel implements Observer {
 		choices[0] = "Please select";
 		for (int index = 1; index < this.theGame.getBoardSize() / 2; index++) {
 			choices[index] = "" + (index - 1);
-			
 		}
 		this.pitChoice = new JComboBox<String>(choices);
 		this.pitChoice.setEnabled(false);

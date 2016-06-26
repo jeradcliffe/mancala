@@ -55,7 +55,6 @@ public class Gui {
 		if (theGame == null) {
 			throw new IllegalArgumentException("Invalid Game object");
 		}
-		
 		this.theGame = theGame;
 		this.createAndShowGUI();
 	}
@@ -101,16 +100,9 @@ public class Gui {
 	}
 	
 	/**
-	 * Builds the menu bar for our GUI
-	 * 
-	 * Has a file menu with an exit option
-	 * 
-	 * Has a Settings menu with a Computer Player Option
-	 * -Computer Player option opens up a pop up menu with:
-	 * 		1)Close (closest seed to store moves)
-	 * 		2)Far (farthest seed from store moves)
-	 * 		3)Random (randomly picks a seed to move)
-	 *
+	 * Builds the menu bar for our GUI:
+	 * 1)File > Exit
+	 * 2)Settings > Computer Player > 3 Strategies
 	 */
 	private void buildMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
@@ -122,8 +114,7 @@ public class Gui {
 	}
 	
 	/**
-	 * Builds a File menu with an exit option to add to
-	 * the menu bar
+	 * Builds a File menu with an exit option
 	 */
 	private JMenu buildFileMenu() {
 		JMenu file = new JMenu("File");
@@ -140,9 +131,7 @@ public class Gui {
 				System.exit(0);
 			}
 		});
-		
 		file.add(exitMenuItem);
-		
 		return file;
 	}
 	
@@ -172,8 +161,7 @@ public class Gui {
 	/**
 	 * Builds our close item for our menu
 	 * 
-	 * @return closeItem	JMenuItem that allows computer
-	 * 						to use close strategy
+	 * @return closeItem	JMenuItem for CloseStrategy
 	 */
 	private JMenuItem buildCloseItem() {
 		JMenuItem closeItem = new JMenuItem("Close");
@@ -189,15 +177,13 @@ public class Gui {
 				Gui.this.theGame.getComputerPlayer().setStrategy(new CloseStrategy());
 			}
 		});	
-		
 		return closeItem;
 	}
 	
 	/**
 	 * Builds our far item for our menu
 	 * 
-	 * @return farItem	JMenuItem that allows computer
-	 * 					to use far strategy
+	 * @return farItem	JMenuItem for FarStrategy
 	 */
 	private JMenuItem buildFarItem() {
 		JMenuItem farItem = new JMenuItem("Far");
@@ -213,7 +199,6 @@ public class Gui {
 				Gui.this.theGame.getComputerPlayer().setStrategy(new FarStrategy());
 			}
 		});	
-		
 		return farItem;
 	}
 	
@@ -296,11 +281,11 @@ public class Gui {
 		 */		
 		private class ComputerFirstListener implements ActionListener {
 			
-			@Override
 			/** 
 			 * Enables the CyberPlayerPanel and starts a new game. 
 			 * Event handler for a click in the cyberPlayerButton.
 			 */
+			@Override
 			public void actionPerformed(ActionEvent eventObject) {
 				NewGamePanel.this.theComputer.setIsMyTurn(true);
 				NewGamePanel.this.theHuman.setIsMyTurn(false);	

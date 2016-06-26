@@ -9,6 +9,7 @@ package edu.westga.cs6910.mancala.model;
 public interface Player {
 	/**
 	 * Returns whether or not it is this player's turn
+	 * 
 	 * @return	True if and only if it is this player's turn
 	 */
 	boolean getIsMyTurn();
@@ -32,7 +33,6 @@ public interface Player {
 	 * 
 	 * @param	pitChoice	The pit number where the stones will
 	 * 						be taken from
-	 * 
 	 */
 	void takeTurn(int pitChoice);
 }

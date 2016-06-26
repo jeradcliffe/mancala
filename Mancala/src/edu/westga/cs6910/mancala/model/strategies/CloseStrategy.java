@@ -24,12 +24,10 @@ public class CloseStrategy implements SelectStrategy {
 		if (theGame == null) {
 			throw new IllegalArgumentException("Can't select pit. No game board exists");
 		}
-		
 		int pitNumber = theGame.length - 2;
 		while (theGame[pitNumber] <= 0) {
 			pitNumber--;
 		}
-		
 		return pitNumber;
 	}
 

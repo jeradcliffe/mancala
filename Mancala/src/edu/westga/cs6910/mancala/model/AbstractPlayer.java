@@ -1,15 +1,11 @@
 package edu.westga.cs6910.mancala.model;
 
 /**
- * This abstract class will implement the shared code
- * and define the abstract methods for the methods without 
- * duplicate code in the ComputerPlayer and HumanPlayer classes.
- * 
- * It will also implement the Player interface.
+ * This abstract class will serve as the parent for
+ * the ComputerPlayer and HumanPlayer classes.
  * 
  * @author Jacob Radcliffe
  * @version 6/12/16
- *
  */
 public abstract class AbstractPlayer implements Player {
 	private boolean isMyTurn;
@@ -67,8 +63,8 @@ public abstract class AbstractPlayer implements Player {
 	public abstract void takeTurn(int pitChoice);
 	
 	/**
-	 * This method will return the Game object of the 
-	 * Abstract Player
+	 * This method will return the Game object that
+	 * the AbstractPlayer is playing
 	 * 
 	 * @return this.theGame reference
 	 */

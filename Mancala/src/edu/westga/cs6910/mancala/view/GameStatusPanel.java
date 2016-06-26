@@ -62,7 +62,6 @@ public class GameStatusPanel extends JPanel implements Observer {
 	 * @ensures the panel's text displays either the current score
 	 * 			or the winner if the game is over.
 	 */
-
 	public void update(Observable observableObject, Object arg) {		
 		this.lblMessage.setText(this.theGame.toString());
 	}

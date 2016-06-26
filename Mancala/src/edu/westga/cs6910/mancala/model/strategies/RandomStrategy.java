@@ -15,9 +15,8 @@ public class RandomStrategy implements SelectStrategy {
 	private Random generator;
 	
 	/**
-	 * Random object is instantiated here to all us 
-	 * to not have to create a random object each time 
-	 * we need to select a random pit.
+	 * Creates a RandomStrategy object with 
+	 * a Random generator
 	 */
 	public RandomStrategy() {
 		this.generator = new Random();
