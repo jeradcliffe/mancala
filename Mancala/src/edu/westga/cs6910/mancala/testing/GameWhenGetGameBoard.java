@@ -29,7 +29,6 @@ public class GameWhenGetGameBoard {
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
 		newGame.startNewGame(human, computer);
-		
 		int[] expected = new int[]{1, 1, 1, 0, 1, 1, 1, 0};
 		int differencesCounter = 0;
 		for (int index = 0; index < newGame.getBoardSize(); index++) {
@@ -39,32 +38,6 @@ public class GameWhenGetGameBoard {
 		}
 		assertEquals(0, differencesCounter);
 	}
-	
-	/**
-	 * Start a new game and see if values match 
-	 * in each index of the array after one play 
-	 * on index 0 from human
-	 * 
-	 * Human starts first
-	 */
-	@Test
-	public void testGetGameBoardAfterHumanPlayPitZero() {
-		Game newGame = new Game();
-		HumanPlayer human = new HumanPlayer("Jake", newGame);
-		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(human, computer);
-		newGame.play(0);
-		
-		int[] expected = new int[]{0, 2, 1, 0, 1, 1, 1, 0};
-		int differencesCounter = 0;
-		for (int index = 0; index < newGame.getBoardSize(); index++) {
-			if (expected[index] != newGame.getGameBoard()[index]) {
-				differencesCounter++;
-			}
-		}
-		assertEquals(0, differencesCounter);
-	}
-
 	
 	/**
 	 * Start a new game and see if values match 
@@ -83,7 +56,6 @@ public class GameWhenGetGameBoard {
 		newGame.startNewGame(human, computer);
 		newGame.play(0);
 		newGame.play(765);
-		
 		int[] expected = new int[]{0, 2, 1, 0, 1, 1, 0, 1};
 		int differencesCounter = 0;
 		for (int index = 0; index < newGame.getBoardSize(); index++) {
