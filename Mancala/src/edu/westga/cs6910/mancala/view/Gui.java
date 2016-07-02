@@ -2,6 +2,7 @@ package edu.westga.cs6910.mancala.view;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,11 +14,13 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.KeyStroke;
 
 import com.sun.glass.events.KeyEvent;
+import java.io.File;
 
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
@@ -109,6 +112,7 @@ public class Gui {
 
 		menuBar.add(this.buildFileMenu());
 		menuBar.add(this.buildSettingsMenu());
+		menuBar.add(this.buildHelpMenu());
 		
 		this.theFrame.setJMenuBar(menuBar);
 	}
@@ -224,6 +228,31 @@ public class Gui {
 		});
 		
 		return randomItem;
+	}
+	
+	
+	private JMenuItem buildHelpMenu() {
+		JMenu helpMenu = new JMenu("Help");
+		helpMenu.setMnemonic(KeyEvent.VK_H);
+
+		JMenuItem howToPlay = new JMenuItem("How To Play");
+		howToPlay.setMnemonic(KeyEvent.VK_I);
+		howToPlay.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_I, ActionEvent.ALT_MASK));
+		
+		howToPlay.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					File htmlFile = new File("MancalaWeb/appPage.html");
+				    Desktop.getDesktop().browse(htmlFile.toURI());
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Website not found.", "404 Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		helpMenu.add(howToPlay);
+		return helpMenu;
 	}
 
 	/////////////////////////////////////////////////
