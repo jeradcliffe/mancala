@@ -132,7 +132,8 @@ public class Game extends Observable {
 		}
 		return this.theBoard[pitNumber];
 	}
-	
+
+//////////////End of getters and setters, begin play experience//////////////////////
 	/**
 	 * Conducts a move in the game, allowing the appropriate Player to
 	 * take a turn. Has no effect if the game is over.
@@ -146,6 +147,8 @@ public class Game extends Observable {
 	 */
 	public void play(int pitChoice) {
 		int lastPitPlayed = this.currentPlayer.takeTurn(pitChoice);
+		
+		this.takeOpponentsStones(lastPitPlayed);
 		
 		Player winner = this.getFinisher();
 		if (winner != null) {
@@ -264,6 +267,103 @@ public class Game extends Observable {
 		this.notifyObservers();
 	}
 	
+//////////////////////////Methods to steal opponents seeds when playing last seed in empty pit////////////////////////	
+	/**
+	 * If the last stone you place is in an empty pit on your side of the board, 
+	 * you will capture (move to your store) any stones in the corresponding pit 
+	 * on the opposite side of the board
+	 * 
+	 * @param lastPitPlayed		The last pit that a seed was laid in
+	 * 
+	 * @precondition 			lastPitPlayed must be one from the 
+	 * 							game board
+	 */
+	private void takeOpponentsStones(int lastPitPlayed) {
+		if (lastPitPlayed < 0 || lastPitPlayed > 7) {
+			throw new IllegalArgumentException("Pit number must be on board");
+		}
+		
+		int humanStore = this.theBoard.length / 2 - 1;
+		int computerStore = this.theBoard.length - 1;
+		
+		if (lastPitPlayed == 0 && this.currentPlayer == this.theHuman && this.ableToSteal(lastPitPlayed, 6)) {
+			this.putOppositePitsInStore(lastPitPlayed, 6, humanStore);
+		} else if (lastPitPlayed == 1 && this.currentPlayer == this.theHuman && this.ableToSteal(lastPitPlayed, 5)) {
+			this.putOppositePitsInStore(lastPitPlayed, 5, humanStore);
+		} else if (lastPitPlayed == 2 && this.currentPlayer == this.theHuman && this.ableToSteal(lastPitPlayed, 4)) {
+			this.putOppositePitsInStore(lastPitPlayed, 4, humanStore);
+		} else if (lastPitPlayed == 4 && this.currentPlayer == this.theComputer && this.ableToSteal(lastPitPlayed, 2)) {
+			this.putOppositePitsInStore(lastPitPlayed, 2, computerStore);
+		} else if (lastPitPlayed == 5 && this.currentPlayer == this.theComputer && this.ableToSteal(lastPitPlayed, 1)) {
+			this.putOppositePitsInStore(lastPitPlayed, 1, computerStore);
+		} else if (lastPitPlayed == 6 && this.currentPlayer == this.theComputer && this.ableToSteal(lastPitPlayed, 0)) {
+			this.putOppositePitsInStore(lastPitPlayed, 0, computerStore);
+		}
+	}
+	
+	/**
+	 * Determines if player is able to take the stones from 
+	 * the pit on the opposite side of the board. 
+	 * 
+	 * @param lastPitPlayed		The last pit that a seed was laid in
+	 * @param pitOpposite		The pit on the opposite side of the board
+	 * 							of the last played pit
+	 * 
+	 * @precondition 			lastPitPlayed must be one from the 
+	 * 							game board	
+
+	 * @return ableToSteal		true if you can take seeds from opposite pit
+	 */
+	private boolean ableToSteal(int lastPitPlayed, int pitOpposite) {
+		if (lastPitPlayed < 0 || lastPitPlayed > 7) {
+			throw new IllegalArgumentException("Pit number must be on board");
+		}
+		if (pitOpposite < 0 || pitOpposite > 7) {
+			throw new IllegalArgumentException("Opposit pit number must be on board");
+		}
+		
+		boolean ableToSteal = false; 
+		
+		if (this.theBoard[lastPitPlayed] == 1 && this.theBoard[pitOpposite] > 0) {
+			return true;
+		}
+		
+		return ableToSteal;
+	}
+	
+	/**
+	 * 
+	 * @param lastPitPlayed		The last pit that a seed was laid in
+	 * @param pitOpposite		The pit on the opposite side of the board
+	 * 							of the last played pit
+	 * @param store				The store where the combined seeds should be placed
+	 * 
+	 * @precondition 			lastPitPlayed must be on board
+	 * 							pitOpposite must be on board
+	 * 							store must computer's or human's last pit on their side
+	 */
+	private void putOppositePitsInStore(int lastPitPlayed, int pitOpposite, int store) {
+		if (lastPitPlayed < 0 || lastPitPlayed > 7) {
+			throw new IllegalArgumentException("Pit number must be on board");
+		}
+		if (pitOpposite < 0 || pitOpposite > 7) {
+			throw new IllegalArgumentException("Opposit pit number must be on board");
+		}
+		if (store != this.theBoard.length - 1 || store != this.theBoard.length / 2 - 1) {
+			throw new IllegalArgumentException("Invalid store chosen.");
+		}
+		
+		this.theBoard[store] +=  this.getStones(lastPitPlayed) + this.getStones(pitOpposite);
+		this.theBoard[lastPitPlayed] = 0;
+		this.theBoard[pitOpposite] = 0;
+		
+		if (this.currentPlayer == this.theHuman) {
+			JOptionPane.showMessageDialog(null, "Human takes stones from opposite pit.");
+		} else if (this.currentPlayer == this.theComputer) {
+			JOptionPane.showMessageDialog(null, "Computer takes stones from opposite pit.");
+		}
+	}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	/**
 	 * Returns a String showing the current score, or, if
 	 * the game is over, the name of the winner.

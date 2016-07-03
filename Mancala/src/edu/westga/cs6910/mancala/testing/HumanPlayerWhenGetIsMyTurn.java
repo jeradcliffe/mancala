@@ -94,6 +94,5 @@ public class HumanPlayerWhenGetIsMyTurn {
 		newGame.play(0);
 		assertEquals(true, human.getIsMyTurn());
 	}
-
 }
 
