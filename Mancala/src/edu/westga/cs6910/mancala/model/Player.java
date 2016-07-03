@@ -31,8 +31,9 @@ public interface Player {
 	/**
 	 * Describes the actions for this player to take its turn
 	 * 
-	 * @param	pitChoice	The pit number where the stones will
-	 * 						be taken from
+	 * @param	pitChoice		The pit number where the stones will
+	 * 							be taken from
+	 * @return lastPitPlayed	The last pit the player places a seed in
 	 */
-	void takeTurn(int pitChoice);
+	int takeTurn(int pitChoice);
 }

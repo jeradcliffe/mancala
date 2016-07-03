@@ -43,10 +43,11 @@ public class ComputerPlayer extends AbstractPlayer {
 	 * @see AbstractPlayer#takeTurn()
 	 */	
 	@Override
-	public void takeTurn(int pitChoice) {				
+	public int takeTurn(int pitChoice) {				
 		pitChoice = this.strategy.selectPit(super.getGame().getGameBoard());
-		super.getGame().distributeStonesFrom(pitChoice);
+		int lastPitPlayed = super.getGame().distributeStonesFrom(pitChoice);
 		super.setIsMyTurn(false);
+		return lastPitPlayed;
 	}
 	
 	/**

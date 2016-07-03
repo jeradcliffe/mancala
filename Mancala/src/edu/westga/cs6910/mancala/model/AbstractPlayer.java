@@ -60,7 +60,7 @@ public abstract class AbstractPlayer implements Player {
 	 * @see edu.westga.cs6910.mancala.model.Player#takeTurn(int)
 	 */
 	@Override
-	public abstract void takeTurn(int pitChoice);
+	public abstract int takeTurn(int pitChoice);
 	
 	/**
 	 * This method will return the Game object that

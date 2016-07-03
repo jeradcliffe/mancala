@@ -26,11 +26,12 @@ public class HumanPlayer extends AbstractPlayer {
 	 * @see AbstractPlayer#takeTurn()
 	 */
 	@Override
-	public void takeTurn(int pitChoice) {
+	public int takeTurn(int pitChoice) {
 		while (super.getGame().getStones(pitChoice) == 0) {
 			pitChoice--;
 		}
-		super.getGame().distributeStonesFrom(pitChoice);
+		int lastPitPlayed = super.getGame().distributeStonesFrom(pitChoice);
 		super.setIsMyTurn(false);
+		return lastPitPlayed;
 	}
 }

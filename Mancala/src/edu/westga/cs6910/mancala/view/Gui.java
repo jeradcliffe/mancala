@@ -230,7 +230,14 @@ public class Gui {
 		return randomItem;
 	}
 	
-	
+	/**
+	 * Builds a help menu to add to our menu bar
+	 * 
+	 * @return helpMenu	JMenuItem that allows us to 
+	 * 					go to the Mancala website that 
+	 * 					will tell our users how to play 
+	 * 					the app.
+	 */
 	private JMenuItem buildHelpMenu() {
 		JMenu helpMenu = new JMenu("Help");
 		helpMenu.setMnemonic(KeyEvent.VK_H);
@@ -255,7 +262,7 @@ public class Gui {
 		return helpMenu;
 	}
 
-	/////////////////////////////////////////////////
+	/////////////////////////////////////////////////////////////////////////
 	/*
 	 * Defines the panel in which the user selects which Player plays first.
 	 */

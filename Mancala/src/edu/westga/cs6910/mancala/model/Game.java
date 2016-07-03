@@ -2,6 +2,8 @@ package edu.westga.cs6910.mancala.model;
 
 import java.util.Observable;
 
+import javax.swing.JOptionPane;
+
 import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 
 /**
@@ -37,13 +39,16 @@ public class Game extends Observable {
 
 	/**
 	 * Distributes the stones located in pitNumber
-	 * 	to all subsequent pits, one at a time in 
-	 * 	counter-clockwise order
+	 * to all subsequent pits, one at a time in 
+	 * counter-clockwise order
 	 * 
-	 * @param pitNumber	The pit number where the stones
-	 * 					are to be taken
+	 * @param pitNumber		The pit number where the stones
+	 * 						are to be taken
+	 * 
+	 * @return currentPit	The pit currently having a seed
+	 * 						placed in it
 	 */
-	public void distributeStonesFrom(int pitNumber) {
+	public int distributeStonesFrom(int pitNumber) {
 		if (pitNumber < 0) {
 			throw new IllegalArgumentException("Pit number cannot be negative");
 		}
@@ -54,16 +59,19 @@ public class Game extends Observable {
 		int stonesFromPit = this.getStones(pitNumber);
 		this.theBoard[pitNumber] = 0;
 		
-		int pitLoopNumber = 0;
+		int currentPit = pitNumber;
 		
 		for (int index = 1; index <= stonesFromPit; index++) {
-			if (index + pitNumber <= 7) {
-				this.theBoard[pitNumber + index] += 1;	
+			if (currentPit < 7) {
+				currentPit++;
+				this.theBoard[currentPit] += 1;
 			} else {
-				this.theBoard[pitLoopNumber] += 1;
-				pitLoopNumber++;
+				currentPit = 0;
+				this.theBoard[currentPit] += 1;
+				currentPit++;
 			}
 		}
+		return currentPit;
 	}
 
 	/**
@@ -137,13 +145,20 @@ public class Game extends Observable {
 	 * @ensures		!whoseTurn().equals(whoseTurn()@prev)
 	 */
 	public void play(int pitChoice) {
-		this.currentPlayer.takeTurn(pitChoice);
+		int lastPitPlayed = this.currentPlayer.takeTurn(pitChoice);
 		
 		Player winner = this.getFinisher();
 		if (winner != null) {
 			this.finishGame(winner);
+		} else if (this.currentPlayer == this.getComputerPlayer() && lastPitPlayed == this.getBoardSize() - 1) {
+			this.currentPlayer.setIsMyTurn(true);
+			JOptionPane.showMessageDialog(null, "Computer's last stone placed in store. \n Computer plays again.");
+		} else if (this.currentPlayer == this.getHumanPlayer() && lastPitPlayed == this.getBoardSize() / 2 - 1) {
+			this.currentPlayer.setIsMyTurn(true);	
+			JOptionPane.showMessageDialog(null, "Your last stone placed in store. \n You get to play again.");
 		} else {
 			this.swapWhoseTurn();
+			this.currentPlayer.setIsMyTurn(true);
 		}
 		this.setChanged();
 		this.notifyObservers();
