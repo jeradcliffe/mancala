@@ -1,23 +1,10 @@
 package edu.westga.cs6910.mancala.view;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.Desktop;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.KeyStroke;
+import javax.swing.*;
 
 import com.sun.glass.events.KeyEvent;
 import java.io.File;
@@ -186,11 +173,6 @@ public class Gui {
 	 * 		2)Far (farthest seed from store moves)
 	 * 		3)Random (randomly picks a seed to move)
 	 * 
-	 * -Seeds Per Pit option opens up a pop up menu with:
-	 * 		1) 1 seeds per pit
-	 * 		2) 2 seeds per pit
-	 * 		3) 3 seeds per pit
-	 * 		4) 4 seeds per pit
 	 */
 	private JMenu buildSettingsMenu() {
 		JMenu settings = new JMenu("Settings");
@@ -199,116 +181,15 @@ public class Gui {
 		JMenu computerPlayerSubmenu = new JMenu("Computer Player");
 		computerPlayerSubmenu.setMnemonic(KeyEvent.VK_P);
 		
-		JMenu seedsPerPitSubmenu = new JMenu("Seeds Per Pit");
-		
 		settings.add(computerPlayerSubmenu);
 		computerPlayerSubmenu.add(this.buildCloseItem());
 		computerPlayerSubmenu.add(this.buildFarItem());
 		computerPlayerSubmenu.add(this.buildRandomItem());
 		
-		settings.add(seedsPerPitSubmenu);
-		seedsPerPitSubmenu.add(this.buildOneSeedItem());
-		seedsPerPitSubmenu.add(this.buildTwoSeedItem());
-		seedsPerPitSubmenu.add(this.buildThreeSeedItem());
-		seedsPerPitSubmenu.add(this.buildFourSeedItem());
-		
 		return settings;
 	}
 
-//////////////All of our options for the number of seeds in each pit/////////////////
-	/**
-	 * Builds a one seed item which allows
-	 * our user to select one seed per pit
-	 * 
-	 * @return oneSeed	JMenuItem for One Seed per pit
-	 */
-	private JMenuItem buildOneSeedItem() {
-		JMenuItem oneSeed = new JMenuItem("One");
-		
-		oneSeed.setMnemonic(KeyEvent.VK_1);
-		
-		oneSeed.setAccelerator(KeyStroke.getKeyStroke(
-		        KeyEvent.VK_1, ActionEvent.ALT_MASK));
-		oneSeed.setToolTipText("One seed per pit.");
-		oneSeed.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-					Gui.this.theGame.resetBoard(1);
-			}
-		});	
-		return oneSeed;
-	}
-	
-	/**
-	 * Builds a two seed item which allows
-	 * our user to select two seeds per pit
-	 * 
-	 * @return twoSeeds	JMenuItem for Two Seeds per pit
-	 */
-	private JMenuItem buildTwoSeedItem() {
-		JMenuItem twoSeed = new JMenuItem("Two");
-		
-		twoSeed.setMnemonic(KeyEvent.VK_2);
-		
-		twoSeed.setAccelerator(KeyStroke.getKeyStroke(
-		        KeyEvent.VK_2, ActionEvent.ALT_MASK));
-		twoSeed.setToolTipText("Two seeds per pit.");
-		twoSeed.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-					Gui.this.theGame.resetBoard(2);
-			}
-		});	
-		return twoSeed;
-	}
-	
-	/**
-	 * Builds a three seed item which allows
-	 * our user to select three seeds per pit
-	 * 
-	 * @return threeSeeds 	JMenuItem for Three Seeds per pit
-	 */
-	private JMenuItem buildThreeSeedItem() {
-		JMenuItem threeSeed = new JMenuItem("Three");
-		
-		threeSeed.setMnemonic(KeyEvent.VK_3);
-		
-		threeSeed.setAccelerator(KeyStroke.getKeyStroke(
-		        KeyEvent.VK_3, ActionEvent.ALT_MASK));
-		threeSeed.setToolTipText("Three seeds per pit.");
-		threeSeed.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-					Gui.this.theGame.resetBoard(3);
-			}
-		});	
-		return threeSeed;
-	}
-	
-	/**
-	 * Builds a four seeds item which allows
-	 * our user to select four seeds per pit
-	 * 
-	 * @return fourSeeds	JMenuItem for Four Seeds per pit
-	 */
-	private JMenuItem buildFourSeedItem() {
-		JMenuItem fourSeed = new JMenuItem("Four");
-		
-		fourSeed.setMnemonic(KeyEvent.VK_4);
-		
-		fourSeed.setAccelerator(KeyStroke.getKeyStroke(
-		        KeyEvent.VK_4, ActionEvent.ALT_MASK));
-		fourSeed.setToolTipText("Four seeds per pit.");
-		fourSeed.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-					Gui.this.theGame.resetBoard(4);
-			}
-		});	
-		return fourSeed;
-	}
-	
-	
+
 //////////////All of our strategies for the Settings Menu////////////////////////////
 	/**
 	 * Builds our close item for our menu
@@ -475,8 +356,20 @@ public class Gui {
 			public void actionPerformed(ActionEvent eventObject) {
 				NewGamePanel.this.theComputer.setIsMyTurn(true);
 				NewGamePanel.this.theHuman.setIsMyTurn(false);	
-				Gui.this.pnlComputerPlayer.setEnabled(true);
-				Gui.this.theGame.startNewGame(NewGamePanel.this.theComputer, NewGamePanel.this.theHuman, 1);
+				
+			    try {
+					String[] seedOptions = { "1", "2", "3", "4"};
+					String input = (String) JOptionPane.showInputDialog(null, "Choose number of seeds per pit.",
+					    "Seed selection", JOptionPane.QUESTION_MESSAGE, null, seedOptions, seedOptions[0]); 
+					if (input == null) {
+						input = "1";
+					}
+					int seedsPerPit = Integer.parseInt(input);
+					Gui.this.pnlComputerPlayer.setEnabled(true);
+					Gui.this.theGame.startNewGame(NewGamePanel.this.theComputer, NewGamePanel.this.theHuman, seedsPerPit);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
 				
 				NewGamePanel.this.radHumanPlayer.setEnabled(false);
 				NewGamePanel.this.radComputerPlayer.setEnabled(false);
@@ -501,11 +394,23 @@ public class Gui {
 				//		with theHuman as the first player.
 				NewGamePanel.this.theHuman.setIsMyTurn(true);
 				NewGamePanel.this.theComputer.setIsMyTurn(false);
-				Gui.this.pnlHumanPlayer.setEnabled(true);
-				Gui.this.theGame.startNewGame(NewGamePanel.this.theHuman, NewGamePanel.this.theComputer, 1);
 				
+			    try {
+					String[] seedOptions = { "1", "2", "3", "4"};
+					String input = (String) JOptionPane.showInputDialog(null, "Choose number of seeds per pit.",
+					    "Seed selection", JOptionPane.QUESTION_MESSAGE, null, seedOptions, seedOptions[0]); 
+					if (input == null) {
+						input = "1";
+					}
+					int seedsPerPit = Integer.parseInt(input);
+					Gui.this.pnlHumanPlayer.setEnabled(true);
+					Gui.this.theGame.startNewGame(NewGamePanel.this.theHuman, NewGamePanel.this.theComputer, seedsPerPit);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, e.getMessage());
+				}
+			    
 				NewGamePanel.this.radHumanPlayer.setEnabled(false);
-				NewGamePanel.this.radComputerPlayer.setEnabled(false);
+			    NewGamePanel.this.radComputerPlayer.setEnabled(false);
 			}
 		}
 	}

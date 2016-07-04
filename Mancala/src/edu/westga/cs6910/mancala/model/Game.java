@@ -248,7 +248,9 @@ public class Game extends Observable {
 	public void startNewGame(Player firstPlayer, Player secondPlayer, int seedsPerPit) {
 		this.currentPlayer = firstPlayer;
 		this.otherPlayer = secondPlayer;
-			
+		
+		//TODO use a window to get number of seeds to be use (try not to use this method, but other method!)
+		
 		this.resetBoard(seedsPerPit);
 		
 		this.setChanged();
@@ -263,7 +265,7 @@ public class Game extends Observable {
 	 * 
 	 * @precondition 		0 < stonesPerPit <=4
 	 */
-	public void resetBoard(int stonesPerPit) {
+	private void resetBoard(int stonesPerPit) {
 		if (stonesPerPit < 0 && stonesPerPit > 4) {
 			throw new IllegalArgumentException("Number of stones may not be negative and must be less than 4.");
 		}
@@ -274,9 +276,6 @@ public class Game extends Observable {
 		}
 		this.theBoard[this.theBoard.length / 2 - 1] = 0;
 		this.theBoard[this.theBoard.length - 1] = 0;
-		
-		this.setChanged();
-		this.notifyObservers();
 	}
 
 /////////////////////Methods to steal opponents seeds when playing last seed in empty pit//////////////////	
