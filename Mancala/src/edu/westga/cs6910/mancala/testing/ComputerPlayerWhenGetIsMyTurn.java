@@ -52,7 +52,7 @@ public class ComputerPlayerWhenGetIsMyTurn {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(computer, human);
+		newGame.startNewGame(computer, human, 1);
 		computer.takeTurn(0);
 		assertEquals(false, computer.getIsMyTurn());
 	}
@@ -71,7 +71,7 @@ public class ComputerPlayerWhenGetIsMyTurn {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(human, computer);
+		newGame.startNewGame(human, computer, 1);
 		newGame.play(0);
 		assertEquals(true, computer.getIsMyTurn());
 	}
@@ -90,7 +90,7 @@ public class ComputerPlayerWhenGetIsMyTurn {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(computer, human);
+		newGame.startNewGame(computer, human, 1);
 		newGame.play(0);
 		assertEquals(false, computer.getIsMyTurn());
 	}

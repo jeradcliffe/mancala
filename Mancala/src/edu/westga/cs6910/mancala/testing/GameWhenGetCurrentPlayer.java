@@ -27,7 +27,7 @@ public class GameWhenGetCurrentPlayer {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(human, computer);
+		newGame.startNewGame(human, computer, 1);
 		assertEquals(human, newGame.getCurrentPlayer());
 	}
 	
@@ -39,7 +39,7 @@ public class GameWhenGetCurrentPlayer {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(computer, human);
+		newGame.startNewGame(computer, human, 1);
 		assertEquals(computer, newGame.getCurrentPlayer());
 	}
 	
@@ -56,7 +56,7 @@ public class GameWhenGetCurrentPlayer {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(computer, human);
+		newGame.startNewGame(computer, human, 1);
 		newGame.play(6);
 		assertEquals(human, newGame.getCurrentPlayer());
 	}
@@ -74,7 +74,7 @@ public class GameWhenGetCurrentPlayer {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(human, computer);
+		newGame.startNewGame(human, computer, 1);
 		newGame.play(2);
 		assertEquals(computer, newGame.getCurrentPlayer());
 	}

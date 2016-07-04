@@ -37,7 +37,7 @@ public class GameWhenGetIsGameOver {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(human, computer);
+		newGame.startNewGame(human, computer, 1);
 		assertEquals(false, newGame.getIsGameOver());
 	}
 	
@@ -50,7 +50,7 @@ public class GameWhenGetIsGameOver {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(human, computer);
+		newGame.startNewGame(human, computer, 1);
 		for (int index = 0; index <= newGame.getBoardSize() - 1; index++) {
 			newGame.play(index);
 		}

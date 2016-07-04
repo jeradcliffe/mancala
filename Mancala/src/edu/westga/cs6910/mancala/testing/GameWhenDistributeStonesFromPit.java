@@ -25,7 +25,7 @@ public class GameWhenDistributeStonesFromPit {
 	@Test
 	public void testDistributeOneStoneFrom5() {
 		Game newGame = new Game();
-		newGame.startNewGame(newGame.getComputerPlayer(), newGame.getHumanPlayer());
+		newGame.startNewGame(newGame.getComputerPlayer(), newGame.getHumanPlayer(), 1);
 		int lastPitUsed = newGame.distributeStonesFrom(6);
 		assertEquals(7, lastPitUsed);
 	}
@@ -38,8 +38,7 @@ public class GameWhenDistributeStonesFromPit {
 	@Test
 	public void testFourStonesEachPit() {
 		Game newGame = new Game();
-		newGame.startNewGame(newGame.getComputerPlayer(), newGame.getHumanPlayer());
-		newGame.resetBoard(4);
+		newGame.startNewGame(newGame.getComputerPlayer(), newGame.getHumanPlayer(), 4);
 		int lastPitUsed = newGame.distributeStonesFrom(6);
 		assertEquals(2, lastPitUsed);
 	}

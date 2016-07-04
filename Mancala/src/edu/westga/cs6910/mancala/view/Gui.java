@@ -133,6 +133,32 @@ public class Gui {
 	}
 	
 	/**
+	 * Builds the New Game option for the File menu
+	 */
+	private JMenuItem buildNewGameItem() {
+		JMenuItem newGameItem = new JMenuItem("New Game");
+		
+		newGameItem.setMnemonic(KeyEvent.VK_N);
+		
+		newGameItem.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_N, ActionEvent.ALT_MASK));
+		
+		newGameItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				javax.swing.SwingUtilities.invokeLater(new Runnable() {
+					public void run() {
+						Gui.this.theFrame.setVisible(false);
+						new Gui(new Game());
+					}
+				});
+			}
+		});
+		return newGameItem;
+	}	
+	
+	/**
 	 * Builds the Exit option of the File menu
 	 */
 	private JMenuItem buildExitItem() {
@@ -149,27 +175,7 @@ public class Gui {
 		return exitMenuItem;
 	}
 	
-	/**
-	 * Builds the New Game option for the File menu
-	 */
-	private JMenuItem buildNewGameItem() {
-		JMenuItem newGameItem = new JMenuItem("New Game");
-		newGameItem.setMnemonic(KeyEvent.VK_N);
-		newGameItem.setAccelerator(KeyStroke.getKeyStroke(
-		        KeyEvent.VK_N, ActionEvent.ALT_MASK));
-		newGameItem.setToolTipText("Only available while game is live.");
-		newGameItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if (Gui.this.theGame.getFirstPlayer() == Gui.this.theGame.getComputerPlayer()) {
-					Gui.this.theGame.startNewGame(Gui.this.theGame.getFirstPlayer(), Gui.this.theGame.getHumanPlayer());	
-				} else if (Gui.this.theGame.getFirstPlayer() == Gui.this.theGame.getHumanPlayer()) {
-					Gui.this.theGame.startNewGame(Gui.this.theGame.getFirstPlayer(), Gui.this.theGame.getComputerPlayer());	
-				}
-			}
-		});
-		return newGameItem;
-	}
+
 
 /////////////////////////Builds the Settings Menu/////////////////////////////////
 	/**
@@ -470,7 +476,7 @@ public class Gui {
 				NewGamePanel.this.theComputer.setIsMyTurn(true);
 				NewGamePanel.this.theHuman.setIsMyTurn(false);	
 				Gui.this.pnlComputerPlayer.setEnabled(true);
-				Gui.this.theGame.startNewGame(NewGamePanel.this.theComputer, NewGamePanel.this.theHuman);
+				Gui.this.theGame.startNewGame(NewGamePanel.this.theComputer, NewGamePanel.this.theHuman, 1);
 				
 				NewGamePanel.this.radHumanPlayer.setEnabled(false);
 				NewGamePanel.this.radComputerPlayer.setEnabled(false);
@@ -496,7 +502,7 @@ public class Gui {
 				NewGamePanel.this.theHuman.setIsMyTurn(true);
 				NewGamePanel.this.theComputer.setIsMyTurn(false);
 				Gui.this.pnlHumanPlayer.setEnabled(true);
-				Gui.this.theGame.startNewGame(NewGamePanel.this.theHuman, NewGamePanel.this.theComputer);
+				Gui.this.theGame.startNewGame(NewGamePanel.this.theHuman, NewGamePanel.this.theComputer, 1);
 				
 				NewGamePanel.this.radHumanPlayer.setEnabled(false);
 				NewGamePanel.this.radComputerPlayer.setEnabled(false);

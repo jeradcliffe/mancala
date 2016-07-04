@@ -15,7 +15,6 @@ import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 public class Game extends Observable {
 	private int[] theBoard;
 	
-	private Player firstPlayer;
 	private Player currentPlayer;
 	private Player otherPlayer;
 
@@ -32,7 +31,6 @@ public class Game extends Observable {
 		this.theHuman = new HumanPlayer("Me", this);
 		this.theComputer = new ComputerPlayer(this, new CloseStrategy());
 		
-		this.firstPlayer = null;
 		this.currentPlayer = null;
 		this.otherPlayer = null;
 
@@ -109,16 +107,6 @@ public class Game extends Observable {
 	 */
 	public HumanPlayer getHumanPlayer() {
 		return this.theHuman;
-	}
-	
-	/**
-	 * Returns the first player to have played
-	 * the game
-	 * 
-	 * @return the first player
-	 */
-	public Player getFirstPlayer() {
-		return this.firstPlayer;
 	}
 	
 	/**
@@ -250,19 +238,18 @@ public class Game extends Observable {
 	 * 
 	 * @param firstPlayer 	the Player who takes the first turn
 	 * @param secondPlayer	the Player who takes the second turn
-	 * 
+	 * @param seedsPerPit 	the number of seeds per pit when starting the game
 	 * @require 			firstPlayer != null && 
 	 * 						secondPlayer != null &&
 	 * 						!firstPlayer.equals(secondPlayer)
 	 * 
 	 * @ensures 			whoseTurn().equals(firstPlayer)
 	 */
-	public void startNewGame(Player firstPlayer, Player secondPlayer) {
-		this.firstPlayer = firstPlayer;
+	public void startNewGame(Player firstPlayer, Player secondPlayer, int seedsPerPit) {
 		this.currentPlayer = firstPlayer;
 		this.otherPlayer = secondPlayer;
 			
-		this.resetBoard(1);
+		this.resetBoard(seedsPerPit);
 		
 		this.setChanged();
 		this.notifyObservers();
@@ -276,7 +263,7 @@ public class Game extends Observable {
 	 * 
 	 * @precondition 		0 < stonesPerPit <=4
 	 */
-	private void resetBoard(int stonesPerPit) {
+	public void resetBoard(int stonesPerPit) {
 		if (stonesPerPit < 0 && stonesPerPit > 4) {
 			throw new IllegalArgumentException("Number of stones may not be negative and must be less than 4.");
 		}

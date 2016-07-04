@@ -28,7 +28,7 @@ public class GameWhenGetGameBoard {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(human, computer);
+		newGame.startNewGame(human, computer, 1);
 		int[] expected = new int[]{1, 1, 1, 0, 1, 1, 1, 0};
 		int differencesCounter = 0;
 		for (int index = 0; index < newGame.getBoardSize(); index++) {
@@ -53,7 +53,7 @@ public class GameWhenGetGameBoard {
 		Game newGame = new Game();
 		HumanPlayer human = new HumanPlayer("Jake", newGame);
 		ComputerPlayer computer = new ComputerPlayer(newGame, new CloseStrategy());
-		newGame.startNewGame(human, computer);
+		newGame.startNewGame(human, computer, 1);
 		newGame.play(0);
 		newGame.play(765);
 		int[] expected = new int[]{0, 2, 1, 0, 1, 1, 0, 1};
