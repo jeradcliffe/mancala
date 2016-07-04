@@ -15,6 +15,7 @@ import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 public class Game extends Observable {
 	private int[] theBoard;
 	
+	private Player firstPlayer;
 	private Player currentPlayer;
 	private Player otherPlayer;
 
@@ -31,6 +32,7 @@ public class Game extends Observable {
 		this.theHuman = new HumanPlayer("Me", this);
 		this.theComputer = new ComputerPlayer(this, new CloseStrategy());
 		
+		this.firstPlayer = null;
 		this.currentPlayer = null;
 		this.otherPlayer = null;
 
@@ -61,14 +63,13 @@ public class Game extends Observable {
 		
 		int currentPit = pitNumber;
 		
-		for (int index = 1; index <= stonesFromPit; index++) {
+		for (int index = 0; index < stonesFromPit; index++) {
 			if (currentPit < 7) {
 				currentPit++;
 				this.theBoard[currentPit] += 1;
 			} else {
 				currentPit = 0;
 				this.theBoard[currentPit] += 1;
-				currentPit++;
 			}
 		}
 		return currentPit;
@@ -111,6 +112,16 @@ public class Game extends Observable {
 	}
 	
 	/**
+	 * Returns the first player to have played
+	 * the game
+	 * 
+	 * @return the first player
+	 */
+	public Player getFirstPlayer() {
+		return this.firstPlayer;
+	}
+	
+	/**
 	 * Returns whether the game has completed yet or not
 	 * 
 	 * @return	true iff the game is over; false otherwise
@@ -133,6 +144,15 @@ public class Game extends Observable {
 		return this.theBoard[pitNumber];
 	}
 
+	/**
+	 * Returns a copy of the game board keeping track
+	 * 	of the number of stones in each pit
+	 * 
+	 * @return	The game board
+	 */
+	public int[] getGameBoard() {
+		return this.theBoard.clone();
+	}
 //////////////End of getters and setters, begin play experience//////////////////////
 	/**
 	 * Conducts a move in the game, allowing the appropriate Player to
@@ -209,49 +229,6 @@ public class Game extends Observable {
 		this.isGameOver = true;
 	}
 	
-	/**
-	 * Returns a copy of the game board keeping track
-	 * 	of the number of stones in each pit
-	 * 
-	 * @return	The game board
-	 */
-	public int[] getGameBoard() {
-		return this.theBoard.clone();
-	}
-	
-	/**
-	 * Sets up the board such that there is exactly 1 stone
-	 * 	in each pit
-	 */
-	private void resetBoard() {
-		for (int index = 0; index < this.theBoard.length / 2 - 1; index++) {
-			this.theBoard[index] = 1;
-			this.theBoard[index + this.theBoard.length / 2] = 1;
-		}
-	}
-
-	/**
-	 * Initializes the game for play.
-	 * 
-	 * @param firstPlayer 	the Player who takes the first turn
-	 * @param secondPlayer	the Player who takes the second turn
-	 * 
-	 * @require 			firstPlayer != null && 
-	 * 						secondPlayer != null &&
-	 * 						!firstPlayer.equals(secondPlayer)
-	 * 
-	 * @ensures 			whoseTurn().equals(firstPlayer)
-	 */
-	public void startNewGame(Player firstPlayer, Player secondPlayer) {
-		this.currentPlayer = firstPlayer;
-		this.otherPlayer = secondPlayer;
-			
-		this.resetBoard();
-		
-		this.setChanged();
-		this.notifyObservers();
-	}
-
 	private void swapWhoseTurn() {
 		// TODO: Swap the players so that the other player becomes 
 		//       the current player and vice versa. Be sure to set 
@@ -266,8 +243,56 @@ public class Game extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
+
+/////////////////Methods that deal with starting and resetting the game/////////////////////////
+	/**
+	 * Initializes the game for play.
+	 * 
+	 * @param firstPlayer 	the Player who takes the first turn
+	 * @param secondPlayer	the Player who takes the second turn
+	 * 
+	 * @require 			firstPlayer != null && 
+	 * 						secondPlayer != null &&
+	 * 						!firstPlayer.equals(secondPlayer)
+	 * 
+	 * @ensures 			whoseTurn().equals(firstPlayer)
+	 */
+	public void startNewGame(Player firstPlayer, Player secondPlayer) {
+		this.firstPlayer = firstPlayer;
+		this.currentPlayer = firstPlayer;
+		this.otherPlayer = secondPlayer;
+			
+		this.resetBoard(1);
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
 	
-//////////////////////////Methods to steal opponents seeds when playing last seed in empty pit////////////////////////	
+	/**
+	 * Sets up the board such that there is exactly 1 stone
+	 * 	in each pit
+	 * 
+	 * @param stonesPerPit 	the number of stones to add into each pit
+	 * 
+	 * @precondition 		0 < stonesPerPit <=4
+	 */
+	private void resetBoard(int stonesPerPit) {
+		if (stonesPerPit < 0 && stonesPerPit > 4) {
+			throw new IllegalArgumentException("Number of stones may not be negative and must be less than 4.");
+		}
+		
+		for (int index = 0; index < this.theBoard.length / 2 - 1; index++) {
+			this.theBoard[index] = stonesPerPit;
+			this.theBoard[index + this.theBoard.length / 2] = stonesPerPit;
+		}
+		this.theBoard[this.theBoard.length / 2 - 1] = 0;
+		this.theBoard[this.theBoard.length - 1] = 0;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+
+/////////////////////Methods to steal opponents seeds when playing last seed in empty pit//////////////////	
 	/**
 	 * If the last stone you place is in an empty pit on your side of the board, 
 	 * you will capture (move to your store) any stones in the corresponding pit 
@@ -323,11 +348,9 @@ public class Game extends Observable {
 		}
 		
 		boolean ableToSteal = false; 
-		
 		if (this.theBoard[lastPitPlayed] == 1 && this.theBoard[pitOpposite] > 0) {
 			return true;
 		}
-		
 		return ableToSteal;
 	}
 	
@@ -349,9 +372,6 @@ public class Game extends Observable {
 		if (pitOpposite < 0 || pitOpposite > 7) {
 			throw new IllegalArgumentException("Opposit pit number must be on board");
 		}
-		if (store != this.theBoard.length - 1 || store != this.theBoard.length / 2 - 1) {
-			throw new IllegalArgumentException("Invalid store chosen.");
-		}
 		
 		this.theBoard[store] +=  this.getStones(lastPitPlayed) + this.getStones(pitOpposite);
 		this.theBoard[lastPitPlayed] = 0;
@@ -363,7 +383,8 @@ public class Game extends Observable {
 			JOptionPane.showMessageDialog(null, "Computer takes stones from opposite pit.");
 		}
 	}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
+	
+/////////////////////////////////To String////////////////////////////////////////////////	
 	/**
 	 * Returns a String showing the current score, or, if
 	 * the game is over, the name of the winner.

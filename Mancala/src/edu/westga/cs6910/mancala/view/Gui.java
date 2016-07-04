@@ -76,6 +76,7 @@ public class Gui {
 		this.theFrame.pack();
 		this.theFrame.setLocationRelativeTo(null);
 		this.theFrame.setVisible(true);
+		this.theFrame.setResizable(false);
 	}
 
 	private void buildContentPane() {
@@ -101,7 +102,8 @@ public class Gui {
 		//			the content pane at the top, and disable it.	
 
 	}
-	
+
+//////////////////MenuBar Build////////////////////////////////////////////
 	/**
 	 * Builds the menu bar for our GUI:
 	 * 1)File > Exit
@@ -116,7 +118,8 @@ public class Gui {
 		
 		this.theFrame.setJMenuBar(menuBar);
 	}
-	
+
+///////////////////////////Builds the File Menu/////////////////////////////
 	/**
 	 * Builds a File menu with an exit option
 	 */
@@ -124,21 +127,51 @@ public class Gui {
 		JMenu file = new JMenu("File");
 		file.setMnemonic(KeyEvent.VK_F);
 		
+		file.add(this.buildNewGameItem());
+		file.add(this.buildExitItem());
+		return file;
+	}
+	
+	/**
+	 * Builds the Exit option of the File menu
+	 */
+	private JMenuItem buildExitItem() {
 		JMenuItem exitMenuItem = new JMenuItem("Exit");
 		exitMenuItem.setMnemonic(KeyEvent.VK_X);
 		exitMenuItem.setAccelerator(KeyStroke.getKeyStroke(
 		        KeyEvent.VK_X, ActionEvent.ALT_MASK));
-		
 		exitMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				System.exit(0);
 			}
 		});
-		file.add(exitMenuItem);
-		return file;
+		return exitMenuItem;
 	}
 	
+	/**
+	 * Builds the New Game option for the File menu
+	 */
+	private JMenuItem buildNewGameItem() {
+		JMenuItem newGameItem = new JMenuItem("New Game");
+		newGameItem.setMnemonic(KeyEvent.VK_N);
+		newGameItem.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_N, ActionEvent.ALT_MASK));
+		newGameItem.setToolTipText("Only available while game is live.");
+		newGameItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (Gui.this.theGame.getFirstPlayer() == Gui.this.theGame.getComputerPlayer()) {
+					Gui.this.theGame.startNewGame(Gui.this.theGame.getFirstPlayer(), Gui.this.theGame.getHumanPlayer());	
+				} else if (Gui.this.theGame.getFirstPlayer() == Gui.this.theGame.getHumanPlayer()) {
+					Gui.this.theGame.startNewGame(Gui.this.theGame.getFirstPlayer(), Gui.this.theGame.getComputerPlayer());	
+				}
+			}
+		});
+		return newGameItem;
+	}
+
+/////////////////////////Builds the Settings Menu/////////////////////////////////
 	/**
 	 * Builds a Settings menu for menu bar with:
 	 * 
@@ -146,6 +179,12 @@ public class Gui {
 	 * 		1)Close (closest seed to store moves)
 	 * 		2)Far (farthest seed from store moves)
 	 * 		3)Random (randomly picks a seed to move)
+	 * 
+	 * -Seeds Per Pit option opens up a pop up menu with:
+	 * 		1) 1 seeds per pit
+	 * 		2) 2 seeds per pit
+	 * 		3) 3 seeds per pit
+	 * 		4) 4 seeds per pit
 	 */
 	private JMenu buildSettingsMenu() {
 		JMenu settings = new JMenu("Settings");
@@ -154,14 +193,117 @@ public class Gui {
 		JMenu computerPlayerSubmenu = new JMenu("Computer Player");
 		computerPlayerSubmenu.setMnemonic(KeyEvent.VK_P);
 		
+		JMenu seedsPerPitSubmenu = new JMenu("Seeds Per Pit");
+		
 		settings.add(computerPlayerSubmenu);
 		computerPlayerSubmenu.add(this.buildCloseItem());
 		computerPlayerSubmenu.add(this.buildFarItem());
 		computerPlayerSubmenu.add(this.buildRandomItem());
 		
+		settings.add(seedsPerPitSubmenu);
+		seedsPerPitSubmenu.add(this.buildOneSeedItem());
+		seedsPerPitSubmenu.add(this.buildTwoSeedItem());
+		seedsPerPitSubmenu.add(this.buildThreeSeedItem());
+		seedsPerPitSubmenu.add(this.buildFourSeedItem());
+		
 		return settings;
 	}
+
+//////////////All of our options for the number of seeds in each pit/////////////////
+	/**
+	 * Builds a one seed item which allows
+	 * our user to select one seed per pit
+	 * 
+	 * @return oneSeed	JMenuItem for One Seed per pit
+	 */
+	private JMenuItem buildOneSeedItem() {
+		JMenuItem oneSeed = new JMenuItem("One");
+		
+		oneSeed.setMnemonic(KeyEvent.VK_1);
+		
+		oneSeed.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_1, ActionEvent.ALT_MASK));
+		oneSeed.setToolTipText("One seed per pit.");
+		oneSeed.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+					Gui.this.theGame.resetBoard(1);
+			}
+		});	
+		return oneSeed;
+	}
 	
+	/**
+	 * Builds a two seed item which allows
+	 * our user to select two seeds per pit
+	 * 
+	 * @return twoSeeds	JMenuItem for Two Seeds per pit
+	 */
+	private JMenuItem buildTwoSeedItem() {
+		JMenuItem twoSeed = new JMenuItem("Two");
+		
+		twoSeed.setMnemonic(KeyEvent.VK_2);
+		
+		twoSeed.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_2, ActionEvent.ALT_MASK));
+		twoSeed.setToolTipText("Two seeds per pit.");
+		twoSeed.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+					Gui.this.theGame.resetBoard(2);
+			}
+		});	
+		return twoSeed;
+	}
+	
+	/**
+	 * Builds a three seed item which allows
+	 * our user to select three seeds per pit
+	 * 
+	 * @return threeSeeds 	JMenuItem for Three Seeds per pit
+	 */
+	private JMenuItem buildThreeSeedItem() {
+		JMenuItem threeSeed = new JMenuItem("Three");
+		
+		threeSeed.setMnemonic(KeyEvent.VK_3);
+		
+		threeSeed.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_3, ActionEvent.ALT_MASK));
+		threeSeed.setToolTipText("Three seeds per pit.");
+		threeSeed.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+					Gui.this.theGame.resetBoard(3);
+			}
+		});	
+		return threeSeed;
+	}
+	
+	/**
+	 * Builds a four seeds item which allows
+	 * our user to select four seeds per pit
+	 * 
+	 * @return fourSeeds	JMenuItem for Four Seeds per pit
+	 */
+	private JMenuItem buildFourSeedItem() {
+		JMenuItem fourSeed = new JMenuItem("Four");
+		
+		fourSeed.setMnemonic(KeyEvent.VK_4);
+		
+		fourSeed.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_4, ActionEvent.ALT_MASK));
+		fourSeed.setToolTipText("Four seeds per pit.");
+		fourSeed.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+					Gui.this.theGame.resetBoard(4);
+			}
+		});	
+		return fourSeed;
+	}
+	
+	
+//////////////All of our strategies for the Settings Menu////////////////////////////
 	/**
 	 * Builds our close item for our menu
 	 * 
@@ -174,7 +316,7 @@ public class Gui {
 		
 		closeItem.setAccelerator(KeyStroke.getKeyStroke(
 		        KeyEvent.VK_C, ActionEvent.ALT_MASK));
-		
+		closeItem.setToolTipText("Computer always picks closest pit.");
 		closeItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -196,7 +338,7 @@ public class Gui {
 		
 		farItem.setAccelerator(KeyStroke.getKeyStroke(
 		        KeyEvent.VK_A, ActionEvent.ALT_MASK));
-		
+		farItem.setToolTipText("Computer always picks farthest pit.");
 		farItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -219,7 +361,7 @@ public class Gui {
 		
 		randomItem.setAccelerator(KeyStroke.getKeyStroke(
 		        KeyEvent.VK_R, ActionEvent.ALT_MASK));
-		
+		randomItem.setToolTipText("Computer always picks random pit.");
 		randomItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -229,7 +371,8 @@ public class Gui {
 		
 		return randomItem;
 	}
-	
+
+/////////////////////////Builds the help menu/////////////////////////////////////////
 	/**
 	 * Builds a help menu to add to our menu bar
 	 * 
@@ -246,7 +389,7 @@ public class Gui {
 		howToPlay.setMnemonic(KeyEvent.VK_I);
 		howToPlay.setAccelerator(KeyStroke.getKeyStroke(
 		        KeyEvent.VK_I, ActionEvent.ALT_MASK));
-		
+		howToPlay.setToolTipText("Help page opens in default browser.");
 		howToPlay.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -262,7 +405,8 @@ public class Gui {
 		return helpMenu;
 	}
 
-	/////////////////////////////////////////////////////////////////////////
+///////////////////////NewGamePanel Class Implementation////////////////////////////////
+
 	/*
 	 * Defines the panel in which the user selects which Player plays first.
 	 */
