@@ -249,8 +249,6 @@ public class Game extends Observable {
 		this.currentPlayer = firstPlayer;
 		this.otherPlayer = secondPlayer;
 		
-		//TODO use a window to get number of seeds to be use (try not to use this method, but other method!)
-		
 		this.resetBoard(seedsPerPit);
 		
 		this.setChanged();
