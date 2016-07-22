@@ -11,6 +11,7 @@ import java.io.File;
 
 import edu.westga.cs6910.mancala.model.Game;
 import edu.westga.cs6910.mancala.model.Player;
+import edu.westga.cs6910.mancala.model.strategies.AdvancedStrategy;
 import edu.westga.cs6910.mancala.model.strategies.CloseStrategy;
 import edu.westga.cs6910.mancala.model.strategies.FarStrategy;
 import edu.westga.cs6910.mancala.model.strategies.RandomStrategy;
@@ -185,6 +186,7 @@ public class Gui {
 		computerPlayerSubmenu.add(this.buildCloseItem());
 		computerPlayerSubmenu.add(this.buildFarItem());
 		computerPlayerSubmenu.add(this.buildRandomItem());
+		computerPlayerSubmenu.add(this.buildAdvancedItem());
 		
 		return settings;
 	}
@@ -257,6 +259,30 @@ public class Gui {
 		});
 		
 		return randomItem;
+	}
+	
+	/**
+	 * Builds our advanced item for our menu
+	 * 
+	 * @return advanced		JMenuItem that allows computer
+	 * 						to use advanced strategy
+	 */
+	private JMenuItem buildAdvancedItem() {
+		JMenuItem advancedItem = new JMenuItem("Advanced");
+		
+		advancedItem.setMnemonic(KeyEvent.VK_D);
+		
+		advancedItem.setAccelerator(KeyStroke.getKeyStroke(
+		        KeyEvent.VK_D, ActionEvent.ALT_MASK));
+		advancedItem.setToolTipText("Computer always picks best possible pit.");
+		advancedItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Gui.this.theGame.getComputerPlayer().setStrategy(new AdvancedStrategy());
+			}
+		});
+		
+		return advancedItem;
 	}
 
 /////////////////////////Builds the help menu/////////////////////////////////////////
