@@ -1,0 +1,165 @@
+~~~~
+2 points 
+Include a set of directions and how the game is played before the game starts. Include the
+ability for the user to turn this feature on and off.
+~~~~
+
+Looking into the Gui class of the view package, I decided to start off with a 
+way to allow my users to take a look at the directions to the game. This is 
+done through a method called buildHelpMenu(). After spending so much time 
+creating a website to tell us all about Mancala, I figured it was time to put 
+it to use. When the user clicks on “Help” followed by “How To Play,” they will 
+be taken directly to the website that I have created for this app. 
+
+As I was processing what to do for this part, I realized that hard coding 
+in all of the instructions would look unattractive and take up a lot of 
+unnecessary space within the program. Plus, this would involve the repetition 
+of information that is already on the website we have created for this project. 
+
+In terms of sequence, I believe this step has to come first. More specifically, 
+I did this right away with the plan to later go back and change what is written 
+on my MancalaWeb/appPage.html page once the rest of my program has been 
+completed. This way, I don’t have to retype the instructions for my webpage over 
+and over as the development process goes. 
+
+I do question the idea of having my JavaMenuItem, “How To Play,” opening up an 
+external site, but I think that having an attractive display of the rules (not 
+to mention the resources available on the site) makes it worth opening up the 
+website externally. I also added in a Jave tooltip function to allow the user 
+to see that they “How To Play” menu item will open an external link. 
+
+I prefer to not have this up on screen right when the user begins to play the 
+game simply because of convenience for the user. I wouldn’t want to have to 
+close one screen just to play a game each time I need it.
+
+Below is a list of the step by step that I thought of as I determined how to do 
+this task. 
+
+•	Add the buildHelpMenu() as part of the buildFileMenu() 
+•	Private helper buildHelpMenu ()
+•	setMnemonic  VK_I  for information
+•	look into how I might pop up a text doc 
+	o	JOptionPane.showMessageDialog(null, iae.getMessage());
+	o	How to Make Dialogs (Oracle Doc)
+	o	Web page link???
+•	Implement an action listener for the menu pop up and close features
+•	Readjust the rules on “theApp” page once everything else is developed
+
+~~~~
+2 points
+Let the user start a new game. By default, the new game should keep the same 
+first player (that is, don't allow the user to select the first player again).
+~~~~
+
+For the start a new game function of my application, I basically followed the 
+same steps used to run the app in the first place. I copied the functionality 
+of the Application Controller and applied these principles into the Gui class. 
+
+This part of the program can be found under the buildNewGameItem() within the 
+Gui class. I decided to allow the program to totally restart any time a new 
+game is called via “File,” followed by “New Game.” Whenever I play a game, I 
+like the ability to start from the very beginning as opposed to restarting with 
+the same first player set as the first player. 
+
+~~~~
+2 points
+Include a way to set the number of stones per pit at the start of the game
+~~~~
+
+To develop this part of the program, I first refactored two methods. 
+
+First, I refactored the Game class’ resetBoard() method to accept an integer 
+value as a paremeter. This will allow me to reset the board using any value 
+between 1 and 4 (inclusive) that I want. 
+
+Next, I refactored the Game class’ startnewGame() method to accept an integer 
+value to be used for the resetBoard() method. This allows me to set up a new 
+board via either method. 
+
+From here, I went to the Gui class and altered the two action listeners that 
+check to see if it is the human or the computer who will start the game. After 
+browsing Oracle documentation, I was able to find a JOptionPane that returns 
+user feedback based on what they select in a drop down menu. This feedback is 
+what allows the user to determine how many seeds should be in each pit. There 
+is a cancel option that comes with this pane by default, and will return null. 
+As a default, I checked for this and have the game start with a one seed per 
+pet when this happens. 
+
+
+
+~~~~
+4 points
+Implement the standard Mancala rules that says if the last stone you place is 
+in your store, you get to go again. Be sure to include some kind of 
+notification that lets the user know what just happened.
+~~~~
+
+In order to implement this part of the Mancal game, I need to be able to trace 
+which pit was last played so that we know whether or not the user placed a seed 
+in the store for their side with that last seed. To do this, I had to go back 
+and change the program so that the distributeStonesFromPit() method in the Game 
+class would return the currentPit() being played (more specifically, the last 
+pit played if it is the last seed distributed). 
+
+I need this information to be passed to the Game class method play(), so that 
+when the current player takeTurn(), we can determine if they get to go again 
+or not. So, each player class or interface had to be refactored so that the 
+last pit played would be passed from the distributeStonesFromPit() method to 
+the takeTurn() method. This would allow our play() method in the Game class to 
+use this information to check two things.
+
+1-If the current player is a computer and its last seed played was put in its 
+store, then the computer will go again.
+
+2- If the current player is a human and its last seed played was put in its 
+store, then the human will go again.
+
+I chose to do it this way because I thought the game play should all be kept 
+within the actual play method. This would be an easy trace for a team member 
+to follow. 
+
+Also, I briefly thought about changing the Human Player and Computer Players 
+so that they would decide if they played again or not. This would require a lot 
+more refactoring and possible cause other bugs in the program that may take a 
+lot of time to work out. Plus, as a developer, if I want to know how the game 
+is being played right now then I will look at the play method of the game class 
+as a starting point and work my way out to the connecting classes or interfaces.
+
+•	(GAME CLASS) distributeStonesFromPit() = refactor to return int value of 
+	  last pit played
+•	(PLAYER INTERFACE) Player and all children = refactor the takeTurn() method 
+	  signature so that it returns an int value of the last pit played
+•	(GAME CLASS) play() = asks us to have the currentPlayer takeTurn(). Store 
+	  the last pit played when the current player takeTurn(). If computer and 
+	  last pit played is in computer’s store, then we will let the computer 
+	  play again (notify user). If human and last pit played is human’s store, 
+	  then we will let the human play again (notify user).
+
+~~~~	  
+4 points
+Implement the standard Mancala rule that says if the last stone you place is in an empty pit on
+your side of the board, you will capture (move to your store) any stones in the corresponding pit
+on the opposite side of the board. Be sure to include some kind of notification that lets the user
+know what just happened.
+~~~~
+
+By implementing the distributeStonesFromPit() method so that it returns the 
+last pit that we place a seed in, I am able to use this to help me take my 
+opponents seeds when appropriate. What I did was check if the last pit I placed 
+a seed in was empty before placing the seed in this pit. Then I checked to see 
+if my opponent has any seeds in the pit opposite this pit. Finally, if these 
+things proved true, I emptied my last played pit along with the pit opposite 
+and place them into my store (or the computers store if the computer has a 
+similar situation). If the game isn’t finished at this point, then we swap turns!
+
+I chose to implement my program this way so that I could take advantage of the 
+distributeStonesFromPit() method, which was already returning the last pit 
+number. Knowing which pit was played can have many uses in other methods moving 
+forward.
+
+Game Class
+•	Take advantage of knowing what the last pit number played was from the distributeStonesFromPit()
+•	You can take opponents stones if: 
+	o	The last seed I drop is in an empty pit on my side
+	o	The pit opposite this last played pit has seeds in it
+ 
