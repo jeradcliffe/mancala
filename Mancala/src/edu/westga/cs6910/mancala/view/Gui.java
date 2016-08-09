@@ -81,14 +81,6 @@ public class Gui {
 		this.pnlComputerPlayer = new ComputerPlayerPanel(this.theGame);
 		this.contentPane.add(this.pnlComputerPlayer, BorderLayout.NORTH);
 		this.pnlComputerPlayer.setEnabled(false);
-		
-		// TODO: 1. Instantiate this.pnlHumanPlayer, add it to
-		//			the content pane at the bottom, and disable it.	
-		//		 2. Instantiate this.pnlGameInfo and add it to
-		//			the content pane in the middle.		
-		//		 3. Instantiate this.pnlComputerPlayer, add it to
-		//			the content pane at the top, and disable it.	
-
 	}
 
 //////////////////MenuBar Build////////////////////////////////////////////
@@ -354,17 +346,13 @@ public class Gui {
 			this.radHumanPlayer = new JRadioButton("Human first");	
 			this.radHumanPlayer.addActionListener(new HumanFirstListener());
 			
-			// TODO: Instantiate this.radComputerPlayer and add 
-			//		 ComputerFirstListener as its action listener.
 			this.radComputerPlayer = new JRadioButton("Computer first");
 			this.radComputerPlayer.addActionListener(new ComputerFirstListener());
 			
-			// TODO: Create a ButtonGroup and add the 2 radio buttons to it.
 			ButtonGroup group = new ButtonGroup();
 			group.add(this.radHumanPlayer);
 			group.add(this.radComputerPlayer);
 	
-			// TODO: Add the 2 radio buttons to this panel.
 			this.add(this.radComputerPlayer);			
 			this.add(this.radHumanPlayer);
 		}
@@ -414,10 +402,6 @@ public class Gui {
 			 */
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO: Set the player objects so the human is noted as playing
-				//		 and the computer is not.				
-				// 		Enable pnlHumanPlayer and start a game
-				//		with theHuman as the first player.
 				NewGamePanel.this.theHuman.setIsMyTurn(true);
 				NewGamePanel.this.theComputer.setIsMyTurn(false);
 				
